@@ -159,3 +159,34 @@ Let us know the user name from firebase
 - Adjust field names (`name`, `email`, etc.) based on your specific owner data structure.
 - Consider error handling and loading states for a robust user experience.
 
+### test 
+```dart 
+return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              final task = snapshot.data!.docs[index];
+              print(snapshot.data!.docs.first);
+              // var docData = snapshot.data!.docs[1].data();
+              // DocumentReference ownerRef = snapshot.data!.docs[1];
+
+              // ownerRef.get().then((ownerSnapshot) {
+              //   if (ownerSnapshot.exists) {
+              //     Map<String, dynamic> ownerData =
+              //         ownerSnapshot.data()! as Map<String, dynamic>;
+              //     // Access owner data fields here, e.g., ownerData['name'], ownerData['email'], etc.
+
+              //     // Example:
+              //     print('Owner name: ${ownerData}');
+              //   } else {
+              //     // Handle the case where the owner document doesn't exist
+              //     print('Owner document not found');
+              //   }
+              //   return Text("hello");
+              // });
+              // return Text("hello");
+              return Text(task.id);
+            },
+          );
+          ```
+          task.id print all the document name .
+

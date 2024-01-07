@@ -1,5 +1,41 @@
 import 'package:flutter/material.dart';
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    // FirebaseFirestore.instance
+    //     .collection('tasks')
+    //     .doc('2zYHX3sHOXopfdZHJLH5')
+    //     .update({'required': 200});
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: TasksScreen(),
+      // MyWidget(),
+    );
+  }
+}
 
 class TasksScreen extends StatelessWidget {
   @override
@@ -9,7 +45,7 @@ class TasksScreen extends StatelessWidget {
         title: Text('Tasks'),
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance.collection('users').snapshots(),
+        stream: FirebaseFirestore.instance.collection('tasks').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text('Error loading tasks'));
@@ -22,27 +58,24 @@ class TasksScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
-              final task = snapshot.data!.docs[index];
-              print(snapshot.data!.docs.first);
+              // final task = snapshot.data!.docs[index];
+              // print(snapshot.data!.docs.first);
               // var docData = snapshot.data!.docs[1].data();
-              // DocumentReference ownerRef = snapshot.data!.docs[1];
+              DocumentReference ownerRef = snapshot.data!.docs[1]['owner'];
 
-              // ownerRef.get().then((ownerSnapshot) {
-              //   if (ownerSnapshot.exists) {
-              //     Map<String, dynamic> ownerData =
-              //         ownerSnapshot.data()! as Map<String, dynamic>;
-              //     // Access owner data fields here, e.g., ownerData['name'], ownerData['email'], etc.
+              ownerRef.get().then((ownerSnapshot) {
+                if (ownerSnapshot.exists) {
+                  Map<String, dynamic> ownerData =
+                      ownerSnapshot.data()! as Map<String, dynamic>;
+                  // Access owner data fields here, e.g., ownerData['name'], ownerData['email'], etc.
 
-              //     // Example:
-              //     print('Owner name: ${ownerData}');
-              //   } else {
-              //     // Handle the case where the owner document doesn't exist
-              //     print('Owner document not found');
-              //   }
-              //   return Text("hello");
-              // });
-              // return Text("hello");
-              return Text(task.id);
+                  // Example:
+                  print('Owner name: ${ownerData}');
+                } else {
+                  // Handle the case where the owner document doesn't exist
+                  print('Owner document not found');
+                }
+              });
             },
           );
         },
