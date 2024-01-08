@@ -1,0 +1,9 @@
+flutter_native_splash:
+  # Customize the splash screen for different platforms
+  android: true
+  ios: true
+  web: true
+  # Specify the splash image location
+  image: assets/images/img_telegram_cloud.png
+  # Background color for web
+  color: "#ffffff"
