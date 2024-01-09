@@ -64,53 +64,51 @@ class MyApp extends StatelessWidget {
 // }
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // _SplashScreenState({Key? key}):super();
   @override
   void initState() {
     super.initState();
-    _checkLoginStatus();
-    log("loger");
-  }
+    Future.delayed(const Duration(seconds: 2), () {
+      //exit full-screen
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.white,
+          statusBarColor: Colors.white));
 
-  Future<void> _checkLoginStatus() async {
-    log('function');
-
-    // bool isLoggedIn = AuthService.prefs.getBool('isLoggedIn') ?? false;
-    log('function');
-    // if (AuthService.currentUser != null ||
-    //     AuthService.prefs.get('isLoggedIn') == true) {
-    //   // If user is logged in, navigate to home screen
-    //   Navigator.pushReplacementNamed(context, '/home');
-    //   log('function');
-    // } else {
-    //   // If not logged in, check with Firebase
-    //   bool isAuthenticated = await AuthService.isAuthenticated();
-
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.white, statusBarColor: Colors.white));
-    log(AuthService.prefs.getBool('isLoggedIn').toString() ??
-        'user not logged in');
-    if (AuthService.currentUser != null) {
-      log('\nUser: ${AuthService.currentUser}');
-      //navigate to home screen
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
-      //navigate to login screen
-      Navigator.pushReplacementNamed(context, '/login');
-    }
-
-    // Remove the splash screen after navigation
-    FlutterNativeSplash.remove();
+      if (AuthService.currentUser != null) {
+        log('\nUser: ${AuthService.currentUser}');
+        //navigate to home screen
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => HomeScreen()));
+      } else {
+        //navigate to login screen
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => const LoginScreen()));
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Container());
+    return Scaffold(
+      body: Container(
+        child: Column(
+          children: [
+            Text(
+                AuthService.prefs.getBool('isLoggedIn')?.toString() ?? 'false'),
+            Text("fgvd"),
+            Text("fgvd"),
+            Text("fgvd"),
+            Text("fgvd"),
+          ],
+        ),
+      ),
+    );
   }
 }
