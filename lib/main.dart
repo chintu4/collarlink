@@ -11,6 +11,7 @@ import 'screens/task_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'api/api.dart';
+import 'screens/profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/DisplayPost': (context) => PostScreen(),
         '/task': (context) => TasksScreen(),
         '/createTask': (context) => CreateTask(),
+        '/profile': (context) => ProfileScreen(),
       },
     );
   }
