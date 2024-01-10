@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               children: [
                 ListTile(
-                  title: Text('Search tasks'),
+                  title: Text(AuthService.getSharedPref("role") as String),
                   onTap: () {},
                 ),
                 ListTile(

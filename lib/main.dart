@@ -25,9 +25,11 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  // AuthService.prefs?.setString('role', 'worker');
 
   @override
   Widget build(BuildContext context) {
+    AuthService.setSharedPref('role', 'worker');
     return MaterialApp(
       title: 'Flutter Demo',
       // home: const LoginScreen(),

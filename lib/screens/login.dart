@@ -29,10 +29,10 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 child: Image.asset('assets/images/img_telegram_cloud.png'),
               ),
-              Text(
-                "CollarLink",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
+              // Text(
+              //   "CollarLink",
+              //   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: MaterialButton(
@@ -41,15 +41,18 @@ class LoginScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 30.0,
-                        width: 30.0,
-                        decoration: BoxDecoration(
-                          // image: DecorationImage(
-                          //   image: AssetImage('assets/images/googleimage.png'),
-                          //   fit: BoxFit.cover,
-                          // ),
-                          shape: BoxShape.circle,
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                          height: 30.0,
+                          width: 30.0,
+                          decoration: BoxDecoration(
+                            // image: DecorationImage(
+                            //   image: AssetImage('assets/images/googleimage.png'),
+                            //   fit: BoxFit.cover,
+                            // ),
+                            shape: BoxShape.circle,
+                          ),
                         ),
                       ),
                       TextButton(
@@ -61,15 +64,15 @@ class LoginScreen extends StatelessWidget {
                         },
                         child: Text("Sign In with Google"),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          AuthService.signOut();
+                      // TextButton(
+                      //   onPressed: () {
+                      //     AuthService.signOut();
 
-                          // APIshandleSignIn(_googleSignIn);
-                          Navigator.pushNamed(context, '/login');
-                        },
-                        child: Text("sign out"),
-                      ),
+                      //     // APIshandleSignIn(_googleSignIn);
+                      //     Navigator.pushNamed(context, '/login');
+                      //   },
+                      //   child: Text("sign out"),
+                      // ),
                     ],
                   ),
                   onPressed: () {
@@ -106,16 +109,25 @@ class ChoosePerson extends StatelessWidget {
               Text('I am a Worker'),
             ],
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/home');
+            AuthService.prefs?.setString('role', 'worker');
+          },
+        ),
+        SizedBox(
+          width: 16,
         ),
         TextButton(
           child: Row(
             children: [
-              Icon(Icons.person),
+              Icon(Icons.work),
               Text('I am a Contractor'),
             ],
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/home');
+            AuthService.prefs?.setString('role', 'contractor');
+          },
         ),
       ],
     )));

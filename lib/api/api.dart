@@ -5,7 +5,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   static SharedPreferences? prefs;
-  bool isLoggedIn = false;
+  static bool isLoggedIn = false;
+
+  static Future<void> setSharedPref(String key, String value) async {
+    prefs = await SharedPreferences.getInstance();
+    prefs!.setString(key, value);
+  }
+
+  static Future<String> getSharedPref(String key) async {
+    prefs = await SharedPreferences.getInstance();
+
+    return prefs!.getString(key)!;
+  }
+
   // static FirebaseAuth _auth = FirebaseAuth.instance;
   static FirebaseAuth _auth = FirebaseAuth.instance;
 
