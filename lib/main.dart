@@ -47,27 +47,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// class SplashScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     // Delay for 3 seconds before navigating to the main app screen
-//     Future.delayed(Duration(seconds: 3), () {
-//       Navigator.pushReplacementNamed(context, '/home');
-//     });
-
-//     return Scaffold(
-//       body: Container(
-//         decoration: BoxDecoration(
-//           image: DecorationImage(
-//             image: AssetImage('assets/images/google.png'),
-//             // fit: BoxFit.cover,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
