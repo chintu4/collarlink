@@ -41,10 +41,11 @@ dependencies:
   firebase_storage : ^11.2.0
   image_picker: ^1.0.5
   google_sign_in: ^6.0.2
-  http: ^0.13.5
+  http : ^1.1.0
   carousel_slider: ^4.2.0
   flutter_native_splash: ^2.2.3+1
   shared_preferences: ^2.1.0
+  location_picker_flutter_map: ^2.1.0
   
 
 dev_dependencies:

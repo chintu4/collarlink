@@ -1,8 +1,9 @@
 import 'package:collarlink/api/api.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_state.dart';
+// import 'package:carousel_slider/carousel_state.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+//contractor Screen
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -10,10 +11,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> images = [
-    'https://picsum.photos/200/300',
-    'https://picsum.photos/200/300',
-    'https://picsum.photos/200/300',
+    'assets/images/img_frame_99.png',
+    'assets/images/Group 6.png',
+    'assets/images/Group 7.png',
+    'assets/images/Group 8.png',
+    'assets/images/Group 9.png',
+    'assets/images/Group 10.png',
+    'assets/images/Group 11.png',
   ];
+  final List<String> titles = [
+    'assets/images/img_image_13.png',
+    'assets/images/img_rectangle_257.png',
+    'assets/images/img_rectangle_257.png',
+  ];
+
   int currentIndex = 0;
 
   @override
@@ -114,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ]),
           Text("Type of work"),
           CarouselSlider(
-            items: images.map((e) => Image(image: NetworkImage(e))).toList(),
+            items: images.map((e) => Image(image: AssetImage(e))).toList(),
             options: CarouselOptions(
               autoPlay: true, // or false to disable autoplay
             ),
@@ -170,6 +181,30 @@ class _HomeScreenState extends State<HomeScreen> {
             ); // Navigate to the search screen
           }
         },
+      ),
+    );
+  }
+}
+
+//try the superpass of the screen
+class ContractorHomeScreen extends StatelessWidget {
+  const ContractorHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Text("Contractor Home"),
+          Text("Contractor Home"),
+          Text("Contractor Home"),
+          Text("Contractor Home"),
+          Text("Contractor Home"),
+          Text("Contractor Home"),
+          Text("Contractor Home"),
+          Text("Contractor Home"),
+          Text("Contractor Home"),
+        ],
       ),
     );
   }

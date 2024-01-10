@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 
 import 'package:flutter/material.dart';
 
@@ -45,6 +45,7 @@ class TextFieldWithLabel extends StatelessWidget {
   }
 }
 
+//simple info box to display message to user
 class infoBox extends StatelessWidget {
   const infoBox({Key? key, required this.title, required this.message});
   final String title;

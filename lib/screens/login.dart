@@ -87,3 +87,40 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
+//login screen
+class ChoosePerson extends StatelessWidget {
+  const ChoosePerson({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+            child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextButton(
+          child: Row(
+            children: [
+              Icon(Icons.person),
+              Text('I am a Worker'),
+            ],
+          ),
+          onPressed: () {},
+        ),
+        TextButton(
+          child: Row(
+            children: [
+              Icon(Icons.person),
+              Text('I am a Contractor'),
+            ],
+          ),
+          onPressed: () {},
+        ),
+      ],
+    )));
+  }
+}
+
+//TODO:
+//test the login
