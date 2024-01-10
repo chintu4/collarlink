@@ -7,6 +7,10 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text('History')),
-        body: ListView.builder(itemBuilder: (context, index) {}));
+        body: ListView.builder(
+            itemCount: 6,
+            itemBuilder: (context, index) {
+              return Text("history");
+            }));
   }
 }
