@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/images/Group 10.png',
     'assets/images/Group 11.png',
   ];
-  final List<String> titles = [
+  final List<String> images2 = [
     'assets/images/img_image_13.png',
     'assets/images/img_rectangle_257.png',
     'assets/images/img_rectangle_257.png',
@@ -113,9 +113,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'To Post a Job',
-                        style: TextStyle(color: Colors.black),
+                      child: TextButton(
+                        child: Text('To Post a Job'),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/createTask');
+                        },
+                        // style: TextStyle(color: Colors.black),
                       ),
                     ),
                   )
@@ -176,9 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 context, '/profile'); // Navigate to the profile screen
           } else if (currentIndex == 2) {
             Navigator.pushNamed(
-              context,
-              '/task',
-            ); // Navigate to the search screen
+                context, '/task'); // Navigate to the search screen
           }
         },
       ),

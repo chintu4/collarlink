@@ -98,12 +98,16 @@ class ProfileScreen extends StatelessWidget {
         title: Text('Profile'),
       ),
       body: StreamBuilder<DocumentSnapshot>(
-        stream: usersCollection.doc(currentUser?.uid).snapshots(),
+        stream: usersCollection.doc(AuthService.currentUser?.uid).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final userData = snapshot.data?.data() as Map<String, dynamic>;
+            final userData = snapshot.data?.data();
 
-            if (userData == null) {
+            if (userData != null && userData is Map<String, dynamic>) {
+              // Handle the case where userData is not null and is of type Map<String, dynamic>
+              // Your logic here
+            } else {
+              // Handle the case where userData is null or is not of type Map<String, dynamic>
               return Center(child: Text("No data available"));
             }
 

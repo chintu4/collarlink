@@ -45,48 +45,53 @@ class PostScreenState extends State<PostScreen> {
                 controller: taskName,
                 decoration: InputDecoration(labelText: 'Task Name'),
               ),
-              Text("Number of people Required :"),
-              DropdownButton<int>(
-                value: selectedNumber,
-                items: List<DropdownMenuItem<int>>.generate(
-                  101,
-                  (index) => DropdownMenuItem(
-                    value: index,
-                    child: Text('$index'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Number of people Required :"),
+                  DropdownButton<int>(
+                    value: selectedNumber,
+                    items: List<DropdownMenuItem<int>>.generate(
+                      101,
+                      (index) => DropdownMenuItem(
+                        value: index,
+                        child: Text('$index'),
+                      ),
+                    ),
+                    onChanged: (newValue) {
+                      setState(() {
+                        selectedNumber = newValue!;
+                      });
+                    },
                   ),
-                ),
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedNumber = newValue!;
-                  });
-                },
+                ],
               ),
-              FlutterLocationPicker(
-                initPosition: LatLong(23, 89),
-                selectLocationButtonStyle: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                ),
-                selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
-                selectLocationButtonText: 'Set Current Location',
-                selectLocationButtonLeadingIcon: const Icon(Icons.check),
-                initZoom: 11,
-                minZoomLevel: 5,
-                maxZoomLevel: 16,
-                trackMyPosition: true,
-                onError: (e) => print(e),
-                onPicked: (pickedData) {
-                  print(pickedData.latLong.latitude);
-                  print(pickedData.latLong.longitude);
-                  print(pickedData.address);
-                  print(pickedData.addressData['country']);
-                },
-                onChanged: (pickedData) {
-                  print(pickedData.latLong.latitude);
-                  print(pickedData.latLong.longitude);
-                  print(pickedData.address);
-                  print(pickedData.addressData);
-                },
-              ),
+              // FlutterLocationPicker(
+              //   initPosition: LatLong(23, 89),
+              //   selectLocationButtonStyle: ButtonStyle(
+              //     backgroundColor: MaterialStateProperty.all(Colors.blue),
+              //   ),
+              //   selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
+              //   selectLocationButtonText: 'Set Current Location',
+              //   selectLocationButtonLeadingIcon: const Icon(Icons.check),
+              //   initZoom: 11,
+              //   minZoomLevel: 5,
+              //   maxZoomLevel: 16,
+              //   trackMyPosition: true,
+              //   onError: (e) => print(e),
+              //   onPicked: (pickedData) {
+              //     print(pickedData.latLong.latitude);
+              //     print(pickedData.latLong.longitude);
+              //     print(pickedData.address);
+              //     print(pickedData.addressData['country']);
+              //   },
+              //   onChanged: (pickedData) {
+              //     print(pickedData.latLong.latitude);
+              //     print(pickedData.latLong.longitude);
+              //     print(pickedData.address);
+              //     print(pickedData.addressData);
+              //   },
+              // ),
               // Replace with actual Google location picker
               ElevatedButton(
                 child: Text("helo"),
@@ -150,6 +155,7 @@ class PostScreenState extends State<PostScreen> {
                       'fromTime': fromTime.format(context),
                       'toTime': toTime.format(context),
                     });
+                    Navigator.pushNamed(context, '/home');
                   }
                 },
               ),

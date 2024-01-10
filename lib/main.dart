@@ -7,12 +7,12 @@ import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/post_screen.dart';
 import 'screens/home.dart';
-import 'dart:io' if (dart.library.js) 'dart:js';
+// import 'dart:io' if (dart.library.js) 'dart:js';
 // import 'screens/task_screen.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart'; //splash screen.dart
 // import 'package:shared_preferences/shared_preferences.dart'; //shared_preferences.dart
 import 'api/api.dart';
-// import 'screens/profile_screen.dart';
+import 'screens/profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,17 +31,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       // home: const LoginScreen(),
-      initialRoute: '/DisplayPost',
+      initialRoute: '/login',
       routes: {
         '/splash': (context) => SplashScreen(), // to create a splash scren
         '/login': (context) => LoginScreen(), // to create a login screen
         '/home': (context) => HomeScreen(),
 
         /// to display the home screen
-        '/DisplayPost': (context) => PostScreen(), // to display the post
+        '/createTask': (context) => PostScreen(), // to display the post
         // '/task': (context) => TasksScreen(),      // to create a task
-        // '/createTask': (context) => CreateTask(), // to create a task
-        // '/profile': (context) => ProfileScreen(), //to post screen
+        // '/DisplayPost': (context) => CreateTask(), // to create a task
+        '/profile': (context) => ProfileScreen(), //to post screen
+        '/choose': (context) => ChoosePerson(),
       },
     );
   }
@@ -84,8 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         child: Column(
           children: [
-            Text(
-                AuthService.prefs.getBool('isLoggedIn')?.toString() ?? 'false'),
+            // Text(AuthService.prefs?.getString('user') ?? "fgvd"),
             Text("fgvd"),
             Text("fgvd"),
             Text("fgvd"),

@@ -4,9 +4,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  static SharedPreferences prefs =
-      SharedPreferences.getInstance() as SharedPreferences;
-  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+  static SharedPreferences? prefs;
+  bool isLoggedIn = false;
+  // static FirebaseAuth _auth = FirebaseAuth.instance;
   static FirebaseAuth _auth = FirebaseAuth.instance;
 
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
