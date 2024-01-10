@@ -111,7 +111,7 @@ class ChoosePerson extends StatelessWidget {
           ),
           onPressed: () {
             Navigator.pushNamed(context, '/home');
-            AuthService.prefs?.setString('role', 'worker');
+            // AuthService.prefs?.setString('role', 'worker');
           },
         ),
         SizedBox(

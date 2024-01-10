@@ -25,10 +25,27 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/images/img_rectangle_257.png',
   ];
 
+  String aValue = '';
   int currentIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    String a = await AuthService.getSharedPref("role");
+    if (a != 'worker') {
+      setState(() {
+        aValue = a;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    AuthService.prefs?.setString('role', 'worker');
     return Scaffold(
       appBar: AppBar(
         title: Text('Collarlink'),
@@ -137,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               children: [
                 ListTile(
-                  title: Text(AuthService.getSharedPref("role") as String),
+                  title: Text(aValue),
                   onTap: () {},
                 ),
                 ListTile(
