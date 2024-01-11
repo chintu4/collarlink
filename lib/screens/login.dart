@@ -64,3 +64,49 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
+//login screen
+class ChoosePerson extends StatelessWidget {
+  const ChoosePerson({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+            child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextButton(
+          child: Row(
+            children: [
+              Icon(Icons.person),
+              Text('I am a Worker'),
+            ],
+          ),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/task');
+            // AuthService.prefs?.setString('role', 'worker');
+          },
+        ),
+        SizedBox(
+          width: 16,
+        ),
+        TextButton(
+          child: Row(
+            children: [
+              Icon(Icons.work),
+              Text('I am a Contractor'),
+            ],
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/home');
+            AuthService.prefs?.setString('role', 'contractor');
+          },
+        ),
+      ],
+    )));
+  }
+}
+
+//TODO:
+//test the login
