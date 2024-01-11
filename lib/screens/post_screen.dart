@@ -6,26 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 
 class PostScreen extends StatefulWidget {
-  const PostScreen({super.key});
+  const PostScreen({Key? key}) : super(key: key);
 
   @override
-  PostScreenState createState() {
-    return PostScreenState();
-  }
+  PostScreenState createState() => PostScreenState();
 }
-
-// Create a corresponding State class.
-// This class holds data related to the form.
 
 class PostScreenState extends State<PostScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController taskName = TextEditingController();
+  final TextEditingController taskNameController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
-  // Add other controllers as needed
 
   int selectedNumber = 0;
-  String selectedPrice = '';
   bool payForTravel = false;
   String workerType = '';
   bool typeWage = false;
@@ -46,16 +39,17 @@ class PostScreenState extends State<PostScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
-                  controller: taskName,
+                  controller: taskNameController,
                   decoration: InputDecoration(labelText: 'Task Name'),
                 ),
+                SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("Number of People Required:"),
                     DropdownButton<int>(
                       value: selectedNumber,
-                      items: List<DropdownMenuItem<int>>.generate(
+                      items: List.generate(
                         101,
                         (index) => DropdownMenuItem(
                           value: index,
@@ -68,50 +62,26 @@ class PostScreenState extends State<PostScreen> {
                         });
                       },
                     ),
-                    // if (workerType == 'mason')
-                    //   DropdownButton<String>(
-                    //     value: selectedPrice,
-                    //     items: <String>[
-                    //       'Option 1',
-                    //       'Option 2',
-                    //       'Option 3',
-                    //       'Option 4'
-                    //     ].map<DropdownMenuItem<String>>((String value) {
-                    //       return DropdownMenuItem<String>(
-                    //         value: value,
-                    //         child: Text(value),
-                    //       );
-                    //     }).toList(),
-                    //     onChanged: (newPrice) {
-                    //       setState(() {
-                    //         selectedPrice = newPrice!;
-                    //       });
-                    //     },
-                    //   ),
                   ],
                 ),
+                SizedBox(height: 16),
                 TextFormField(
                   controller: amountController,
                   decoration: InputDecoration(
                     labelText: 'Description',
                   ),
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   minLines: 2,
                   maxLines: 4,
                 ),
+                SizedBox(height: 16),
                 TextFormField(
                   controller: locationController,
                   decoration: InputDecoration(
                     labelText: 'Site of Work (Address)',
                   ),
                 ),
-                TextFormField(
-                  controller: amountController,
-                  decoration: InputDecoration(
-                    labelText: 'Total Amount per Head (in Rs.)',
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
+                SizedBox(height: 16),
                 Row(
                   children: [
                     Text("Type of Work"),
@@ -119,43 +89,24 @@ class PostScreenState extends State<PostScreen> {
                     CustomDropdown(
                       items: ['Contract Worker', 'Wage Per Work'],
                       onChanged: (selectedValue) {
-                        log('Selected: $selectedValue');
-                        if (selectedValue == 'Wage Per Work') {
-                          setState(() {
-                            typeWage = true;
-                          });
-                        }
-                        if (selectedValue == 'Contract Worker') {
-                          setState(() {
-                            typeWage = false;
-                          });
-                        }
-                      },
-                    ),
-                  ],
-                ),
-                // if (typeWage) PersonInfoForm(),
-                if (!typeWage) TextField(minLines: 7, maxLines: 7),
-                Row(
-                  children: [
-                    Text("Worker Type"),
-                    SizedBox(width: 20),
-                    DropdownButton<String>(
-                      onChanged: (String? newValue) {
                         setState(() {
-                          workerType = newValue!;
+                          typeWage = selectedValue == 'Wage Per Work';
                         });
                       },
-                      items: <String>['Mason', 'Labour', 'Other']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
                     ),
                   ],
                 ),
+                SizedBox(height: 16),
+                if (typeWage) AskInfo(),
+                if (!typeWage)
+                  TextFormField(
+                    controller: amountController,
+                    decoration: InputDecoration(
+                      labelText: 'Total Amount per Head (in Rs.)',
+                    ),
+                    keyboardType: TextInputType.number,
+                  ),
+                SizedBox(height: 16),
                 Row(
                   children: [
                     Text('Will You Pay For Travel'),
@@ -169,16 +120,19 @@ class PostScreenState extends State<PostScreen> {
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  child: Text('Submit'),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Submit to Firebase or your backend
-                      // Example: Firestore.collection('tasks').add({ ... });
-                      // Navigate to the next screen
-                      Navigator.pushNamed(context, '/home');
-                    }
-                  },
+                SizedBox(height: 16),
+                Center(
+                  child: ElevatedButton(
+                    child: Text('Submit'),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // Submit to Firebase or your backend
+                        // Example: Firestore.collection('tasks').add({ ... });
+                        // Navigate to the next screen
+                        Navigator.pushNamed(context, '/home');
+                      }
+                    },
+                  ),
                 ),
               ],
             ),

@@ -373,3 +373,53 @@ class _PersonInfoFormState extends State<PersonInfoForm> {
     );
   }
 }
+
+class AskInfo extends StatefulWidget {
+  const AskInfo({Key? key}) : super(key: key);
+
+  @override
+  State<AskInfo> createState() => AskInfoState();
+}
+
+class AskInfoState extends State<AskInfo> {
+  final amountController = TextEditingController();
+  final calController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text("Mason :"),
+              Expanded(
+                child: TextFormField(
+                  controller: amountController,
+                  decoration: InputDecoration(
+                    labelText: 'Price for Mason',
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text("Labour :"),
+              Expanded(
+                child: TextFormField(
+                  controller: calController,
+                  decoration: InputDecoration(
+                    labelText: 'Price for Labour',
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
