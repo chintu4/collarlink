@@ -22,25 +22,67 @@ class TasksScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
-              // final task = snapshot.data!.docs[index];
-              // print(snapshot.data!.docs.first);
-              // var docData = snapshot.data!.docs[1].data();
-              // // DocumentReference ownerRef = snapshot.data!.docs[1]['owner'];
+              var task = snapshot.data!.docs[index].data();
+              var taskId = snapshot.data!.docs[index].id;
 
-              // ownerRef.get().then((ownerSnapshot) {
-              //   if (ownerSnapshot.exists) {
-              //     Map<String, dynamic> ownerData =
-              //         ownerSnapshot.data()! as Map<String, dynamic>;
-              //     // Access owner data fields here, e.g., ownerData['name'], ownerData['email'], etc.
-
-              //     // Example:
-              //     print('Owner name: ${ownerData}');
-              //   } else {
-              //     // Handle the case where the owner document doesn't exist
-              //     print('Owner document not found');
-              //   }
-              // });
+              return ListTile(
+                title: Text(task!['title'] ?? "tasks"),
+                subtitle: Text(task['description'] ?? "description"),
+                onTap: () {
+                  // When tapped, navigate to a new screen to show more details
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TaskDetailsScreen(taskId: taskId),
+                    ),
+                  );
+                },
+              );
             },
+          );
+        },
+      ),
+    );
+  }
+}
+
+class TaskDetailsScreen extends StatelessWidget {
+  final String taskId;
+
+  TaskDetailsScreen({required this.taskId});
+
+  @override
+  Widget build(BuildContext context) {
+    // Fetch additional details for the specific task using taskId
+    // ...
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Task Details'),
+      ),
+      body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        future:
+            FirebaseFirestore.instance.collection('tasks').doc(taskId).get(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('Error loading task details'));
+          }
+
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          var taskDetails = snapshot.data!.data();
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Title: ${taskDetails!['title']}'),
+                Text('Description: ${taskDetails['description']}'),
+                // Add more details as needed
+              ],
+            ),
           );
         },
       ),
