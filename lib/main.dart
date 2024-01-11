@@ -8,7 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'screens/post_screen.dart';
 import 'screens/home.dart';
 // import 'dart:io' if (dart.library.js) 'dart:js';
-// import 'screens/task_screen.dart';
+import 'screens/task_screen.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart'; //splash screen.dart
 // import 'package:shared_preferences/shared_preferences.dart'; //shared_preferences.dart
 import 'api/api.dart';
@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       // home: const LoginScreen(),
       initialRoute: '/login',
+
       routes: {
         '/splash': (context) => SplashScreen(), // to create a splash scren
         '/login': (context) => LoginScreen(), // to create a login screen
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
 
         /// to display the home screen
         '/createTask': (context) => PostScreen(), // to display the post
-        // '/task': (context) => TasksScreen(),      // to create a task
+        '/task': (context) => TasksScreen(), // to create a task
         // '/DisplayPost': (context) => CreateTask(), // to create a task
         '/profile': (context) => ProfileScreen(), //to post screen
         '/choose': (context) => ChoosePerson(),

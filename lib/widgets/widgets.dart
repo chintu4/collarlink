@@ -1,6 +1,5 @@
-// import 'dart:js';
-
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class TextFieldWithLabel extends StatelessWidget {
   final String labelText;
@@ -156,6 +155,221 @@ class TextBox extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class MyDropdownList extends StatefulWidget {
+  @override
+  _MyDropdownListState createState() => _MyDropdownListState();
+}
+
+class _MyDropdownListState extends State<MyDropdownList> {
+  final List<String> professions = ['Mason', 'Labour', 'Other'];
+  String selectedProfession = 'Mason';
+  String otherProfession = '';
+  double price = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        DropdownButton<String>(
+          value: selectedProfession,
+          onChanged: (String? newValue) {
+            setState(() {
+              selectedProfession = newValue!;
+            });
+          },
+          items: professions.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ),
+        if (selectedProfession == 'Other')
+          TextFormField(
+            onChanged: (value) {
+              setState(() {
+                otherProfession = value;
+              });
+            },
+            decoration: InputDecoration(labelText: 'Other'),
+          ),
+        if (selectedProfession == 'Mason' || selectedProfession == 'Labour')
+          TextFormField(
+            onChanged: (value) {
+              setState(() {
+                price = double.tryParse(value) ?? 0.0;
+              });
+            },
+            decoration: InputDecoration(labelText: 'Price in Rupees'),
+            keyboardType: TextInputType.number,
+          ),
+      ],
+    );
+  }
+}
+
+class DropDown extends StatefulWidget {
+  const DropDown({super.key});
+
+  @override
+  State<DropDown> createState() => _DropDownState();
+}
+
+class _DropDownState extends State<DropDown> {
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+      items: <String>['Contract per Earn', 'Work per Wage']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      onChanged: (value) {},
+    );
+  }
+}
+
+class CustomDropdown extends StatefulWidget {
+  final List<String> items;
+  final Function(String)? onChanged;
+
+  CustomDropdown({required this.items, this.onChanged});
+
+  @override
+  _CustomDropdownState createState() => _CustomDropdownState();
+}
+
+class _CustomDropdownState extends State<CustomDropdown> {
+  String? _selectedItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: _selectedItem,
+      onChanged: (String? newValue) {
+        setState(() {
+          _selectedItem = newValue;
+          widget.onChanged?.call(newValue!);
+        });
+      },
+      items: widget.items.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+}
+
+class PersonInfoForm extends StatefulWidget {
+  @override
+  _PersonInfoFormState createState() => _PersonInfoFormState();
+}
+
+class _PersonInfoFormState extends State<PersonInfoForm> {
+  String personType = '';
+  String gender = '';
+  double price = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Select Person Type:'),
+        Row(
+          children: [
+            Radio(
+              value: 'Mason',
+              groupValue: personType,
+              onChanged: (value) {
+                setState(() {
+                  personType = value.toString();
+                });
+              },
+            ),
+            Text('Mason'),
+            Radio(
+              value: 'Labour',
+              groupValue: personType,
+              onChanged: (value) {
+                setState(() {
+                  personType = value.toString();
+                });
+              },
+            ),
+            Text('Labour'),
+          ],
+        ),
+        if (personType.isNotEmpty)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Select Gender:'),
+              Row(
+                children: [
+                  Radio(
+                    value: 'Male',
+                    groupValue: gender,
+                    onChanged: (value) {
+                      setState(() {
+                        gender = value.toString();
+                      });
+                    },
+                  ),
+                  Text('Male'),
+                  Radio(
+                    value: 'Female',
+                    groupValue: gender,
+                    onChanged: (value) {
+                      setState(() {
+                        gender = value.toString();
+                      });
+                    },
+                  ),
+                  Text('Female'),
+                ],
+              ),
+              Text('Enter Price:'),
+              TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    price = double.tryParse(value) ?? 0.0;
+                  });
+                },
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: 'Enter price',
+                ),
+              ),
+            ],
+          ),
+        ElevatedButton(
+          onPressed: () {
+            if (personType.isNotEmpty && gender.isNotEmpty) {
+              // Return the values in JSON format
+              Map<String, dynamic> data = {
+                'personType': personType,
+                'gender': gender,
+                'price': price,
+              };
+              String jsonData = jsonEncode(data);
+              print(jsonData);
+            } else {
+              // Handle if not all information is provided
+              print('Please select both person type and gender.');
+            }
+          },
+          child: Text('Submit'),
+        ),
+      ],
     );
   }
 }

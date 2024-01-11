@@ -25,21 +25,21 @@ class TasksScreen extends StatelessWidget {
               // final task = snapshot.data!.docs[index];
               // print(snapshot.data!.docs.first);
               // var docData = snapshot.data!.docs[1].data();
-              DocumentReference ownerRef = snapshot.data!.docs[1]['owner'];
+              // // DocumentReference ownerRef = snapshot.data!.docs[1]['owner'];
 
-              ownerRef.get().then((ownerSnapshot) {
-                if (ownerSnapshot.exists) {
-                  Map<String, dynamic> ownerData =
-                      ownerSnapshot.data()! as Map<String, dynamic>;
-                  // Access owner data fields here, e.g., ownerData['name'], ownerData['email'], etc.
+              // ownerRef.get().then((ownerSnapshot) {
+              //   if (ownerSnapshot.exists) {
+              //     Map<String, dynamic> ownerData =
+              //         ownerSnapshot.data()! as Map<String, dynamic>;
+              //     // Access owner data fields here, e.g., ownerData['name'], ownerData['email'], etc.
 
-                  // Example:
-                  print('Owner name: ${ownerData}');
-                } else {
-                  // Handle the case where the owner document doesn't exist
-                  print('Owner document not found');
-                }
-              });
+              //     // Example:
+              //     print('Owner name: ${ownerData}');
+              //   } else {
+              //     // Handle the case where the owner document doesn't exist
+              //     print('Owner document not found');
+              //   }
+              // });
             },
           );
         },

@@ -42,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(32.0),
                         child: Container(
                           height: 30.0,
                           width: 30.0,
@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () async {
-                          await AuthService.stasignInWithGoogle();
+                          // await AuthService.stasignInWithGoogle();
 
                           // APIshandleSignIn(_googleSignIn);
                           Navigator.pushReplacementNamed(context, '/choose');
@@ -110,7 +110,7 @@ class ChoosePerson extends StatelessWidget {
             ],
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/home');
+            Navigator.pushReplacementNamed(context, '/task');
             // AuthService.prefs?.setString('role', 'worker');
           },
         ),

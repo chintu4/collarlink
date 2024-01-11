@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {},
             ),
             ListTile(
-              title: Text('Post'),
+              title: Text('Recent Post'),
               onTap: () {},
             ),
             ListTile(
