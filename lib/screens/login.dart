@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () async {
-                          // await AuthService.stasignInWithGoogle();
+                          await AuthService.stasignInWithGoogle();
 
                           // APIshandleSignIn(_googleSignIn);
                           Navigator.pushReplacementNamed(context, '/choose');

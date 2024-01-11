@@ -70,6 +70,7 @@ class DefaultFirebaseOptions {
     projectId: 'hello-fdb7a',
     databaseURL: 'https://hello-fdb7a.firebaseio.com',
     storageBucket: 'hello-fdb7a.appspot.com',
+    androidClientId: '210663146928-f48qnnqasajgcpaddntolcppo8baldfd.apps.googleusercontent.com',
     iosClientId: '210663146928-85tebmn7r8ed16pc29uoa4r58qismb5u.apps.googleusercontent.com',
     iosBundleId: 'com.example.collarlink',
   );
@@ -81,6 +82,7 @@ class DefaultFirebaseOptions {
     projectId: 'hello-fdb7a',
     databaseURL: 'https://hello-fdb7a.firebaseio.com',
     storageBucket: 'hello-fdb7a.appspot.com',
+    androidClientId: '210663146928-f48qnnqasajgcpaddntolcppo8baldfd.apps.googleusercontent.com',
     iosClientId: '210663146928-eq0lgaujkg5h5ijfruvq61k8rmhkss79.apps.googleusercontent.com',
     iosBundleId: 'com.example.collarlink.RunnerTests',
   );
