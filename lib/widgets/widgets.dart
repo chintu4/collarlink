@@ -375,16 +375,20 @@ class _PersonInfoFormState extends State<PersonInfoForm> {
 }
 
 class AskInfo extends StatefulWidget {
-  const AskInfo({Key? key}) : super(key: key);
+  final TextEditingController masonPriceController;
+  final TextEditingController labourPriceController;
+
+  const AskInfo({
+    Key? key,
+    required this.masonPriceController,
+    required this.labourPriceController,
+  }) : super(key: key);
 
   @override
   State<AskInfo> createState() => AskInfoState();
 }
 
 class AskInfoState extends State<AskInfo> {
-  final amountController = TextEditingController();
-  final calController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -395,7 +399,7 @@ class AskInfoState extends State<AskInfo> {
               Text("Mason :"),
               Expanded(
                 child: TextFormField(
-                  controller: amountController,
+                  controller: widget.masonPriceController,
                   decoration: InputDecoration(
                     labelText: 'Price for Mason',
                   ),
@@ -409,7 +413,7 @@ class AskInfoState extends State<AskInfo> {
               Text("Labour :"),
               Expanded(
                 child: TextFormField(
-                  controller: calController,
+                  controller: widget.labourPriceController,
                   decoration: InputDecoration(
                     labelText: 'Price for Labour',
                   ),

@@ -67,6 +67,38 @@ class AuthService {
       return false;
     }
   }
+
+  static Future<void> pushPostScreenData(Map<String, dynamic> data) async {
+    await FirebaseFirestore.instance.collection('tasks').add(data);
+    await pushRecentScreenData(data);
+  }
+
+  // static Future<void> signInWithPhoneNumber(String phoneNumber) async {
+  //   await _auth.verifyPhoneNumber(
+  //     phoneNumber: phoneNumber,
+  //     verificationCompleted: (PhoneAuthCredential credential) async {
+  //       await _auth.signInWithCredential(credential);
+  //       // Handle successful verification
+  //     },
+  //     verificationFailed: (FirebaseAuthException e) {
+  //       // Handle verification failure
+  //     },
+  //     codeSent: (String verificationId, int? resendToken) {
+  //       // Save the verificationId and show the code input UI
+  //     },
+  //     codeAutoRetrievalTimeout: (String verificationId) {
+  //       // Auto-retrieval timeout
+  //     },
+  //   );
+  // }
+
+  static Future<void> pushRecentScreenData(Map<String, dynamic> data) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser?.uid)
+        .collection('recentPost')
+        .add(data);
+  }
 }
 
 // class AuthSign {

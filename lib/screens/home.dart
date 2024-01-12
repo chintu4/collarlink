@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:collarlink/api/api.dart';
 import 'package:flutter/material.dart';
 // import 'package:carousel_slider/carousel_state.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:collarlink/screens/task_screen.dart';
 
 //contractor Screen
 class HomeScreen extends StatefulWidget {
@@ -77,7 +80,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               title: Text('Recent Post'),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/recentPost');
+              },
             ),
             ListTile(
               title: Text('Feedback'),
@@ -147,8 +152,12 @@ class _HomeScreenState extends State<HomeScreen> {
           CarouselSlider(
             items: images.map((e) => Image(image: AssetImage(e))).toList(),
             options: CarouselOptions(
-              autoPlay: true, // or false to disable autoplay
-            ),
+                autoPlay: true,
+                onPageChanged: (index, reason) {
+                  log("tapped on $index");
+                } // or false to disable autoplay
+                // TODO:implement on tap feature
+                ),
           ),
           Expanded(
             child: ListView(
@@ -168,6 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+          // TasksScreen()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

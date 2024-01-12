@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key});
+  LoginScreen({Key? key});
+  TextEditingController phonenumbercontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +33,28 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     child: Image.asset('assets/images/img_telegram_cloud.png'),
                   ),
+                  // TextField(
+                  //   controller: phonenumbercontroller,
+                  //   decoration: InputDecoration(
+                  //     border: OutlineInputBorder(),
+                  //     labelText: 'Phone Number',
+                  //   ),
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     TextButton(
+                  //         onPressed: () {
+                  //           AuthService.signInWithPhoneNumber(
+                  //               phonenumbercontroller.text);
+                  //         },
+                  //         child: Text("login"))
+                  //   ],
+                  // ),
                   MaterialButton(
                     color: Colors.teal[100],
                     elevation: 10,
                     onPressed: () async {
+                      await AuthService.stasignInWithGoogle();
                       Navigator.pushReplacementNamed(context, '/choose');
                     },
                     child: Row(

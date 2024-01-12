@@ -159,6 +159,10 @@ class ProfileScreen extends StatelessWidget {
                       title: "About",
                       sectionName: userData['About'] ?? "Unknown",
                       onPressed: () => editField("About")),
+                  TextBox(
+                      title: "Phone Number",
+                      sectionName: userData['phoneNo'] ?? "Unknown",
+                      onPressed: () => editField("phoneNo")),
                 ],
               ),
             );
@@ -174,6 +178,13 @@ class ProfileScreen extends StatelessWidget {
               ],
             ));
           }
+        },
+      ),
+      floatingActionButton: TextButton(
+        child: Text("Logout"),
+        onPressed: () {
+          AuthService.signOut();
+          Navigator.pushReplacementNamed(context, "/login");
         },
       ),
     );

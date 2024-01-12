@@ -13,6 +13,7 @@ import 'screens/task_screen.dart';
 // import 'package:shared_preferences/shared_preferences.dart'; //shared_preferences.dart
 import 'api/api.dart';
 import 'screens/profile_screen.dart';
+import 'screens/sideBar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         // '/DisplayPost': (context) => CreateTask(), // to create a task
         '/profile': (context) => ProfileScreen(), //to post screen
         '/choose': (context) => ChoosePerson(),
+        '/recentPost': (context) => RecentPost(),
       },
     );
   }
@@ -77,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
       } else {
         //navigate to login screen
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const LoginScreen()));
+            context, MaterialPageRoute(builder: (_) => LoginScreen()));
       }
     });
   }

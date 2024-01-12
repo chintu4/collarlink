@@ -15,8 +15,11 @@ class PostScreen extends StatefulWidget {
 class PostScreenState extends State<PostScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController taskNameController = TextEditingController();
+  final TextEditingController DescriptionController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+  final TextEditingController masonPriceController = TextEditingController();
+  final TextEditingController LabourPriceController = TextEditingController();
 
   int selectedNumber = 0;
   bool payForTravel = false;
@@ -66,7 +69,7 @@ class PostScreenState extends State<PostScreen> {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
-                  controller: amountController,
+                  controller: DescriptionController,
                   decoration: InputDecoration(
                     labelText: 'Description',
                   ),
@@ -97,7 +100,11 @@ class PostScreenState extends State<PostScreen> {
                   ],
                 ),
                 SizedBox(height: 16),
-                if (typeWage) AskInfo(),
+                if (typeWage)
+                  AskInfo(
+                    masonPriceController: masonPriceController,
+                    labourPriceController: LabourPriceController,
+                  ),
                 if (!typeWage)
                   TextFormField(
                     controller: amountController,
@@ -124,12 +131,38 @@ class PostScreenState extends State<PostScreen> {
                 Center(
                   child: ElevatedButton(
                     child: Text('Submit'),
-                    onPressed: () {
+                    onPressed: () async {
+                      log("${AuthService.currentUser?.email!}");
                       if (_formKey.currentState!.validate()) {
-                        // Submit to Firebase or your backend
-                        // Example: Firestore.collection('tasks').add({ ... });
-                        // Navigate to the next screen
-                        Navigator.pushNamed(context, '/home');
+                        // Create a map containing the data to be stored in Firestore
+                        Map<String, dynamic> postData = {
+                          'taskName': taskNameController.text,
+                          'selectedNumber': selectedNumber,
+                          'description': DescriptionController.text,
+                          'location': locationController.text,
+                          'typeOfWork':
+                              typeWage ? 'Wage Per Work' : 'Contract Worker',
+                          // Add other fields as needed
+                          'uid': AuthService.currentUser!.uid,
+
+                          'amount': typeWage ? amountController.text : null,
+                          'mason': masonPriceController.text,
+                          'labour': LabourPriceController.text,
+
+                          'payForTravel': payForTravel,
+                        };
+
+                        try {
+                          // Add the data to Firestore
+                          // Optionally, you can call your AuthService method here if needed
+                          await AuthService.pushPostScreenData(postData);
+
+                          // Navigate to the next screen
+                          Navigator.pushNamed(context, '/home');
+                        } catch (e) {
+                          // Handle any errors that occur during the Firestore operation
+                          log('Error adding document to Firestore: $e');
+                        }
                       }
                     },
                   ),
