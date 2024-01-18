@@ -94,6 +94,7 @@ class TaskDetailsScreen extends StatelessWidget {
                 TaskDetailRow('Amount', taskDetails!['amount']),
                 TaskDetailRow('Mason', taskDetails!['mason']),
                 TaskDetailRow('Labour', taskDetails!['labour']),
+
                 // TaskDetailRow('Pay for Travel', taskDetails['payForTravel']),
                 Divider(),
                 UserDetailsStream(uid: taskDetails['uid']),

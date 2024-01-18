@@ -1,7 +1,7 @@
 
 test to work The Screen
 In Internal of 19:45 i have created a 
-# screens:
+# Screens:
 
 <!-- Screen() -->
 not linked pages 
@@ -9,15 +9,15 @@ reviewPage()
 ContractorHomePage() in homescreen
 
 building create task screen
-# starts
+# Starts
 when user select the to work and to hire the user data should get updates
 TODO:
 if contractor after login directly goes in the homescreen or labour
 
 
-## requirement task:
+## Requirement task:
 contractor has work to post 
-### contractor screen
+### Contractor screen
 * create a task screen page in contract
 *  TaskScreen should get load in task screen() and respective task should be loaded into the task Screen with current current uid and review which current user holds on current platform
 #### TODO:

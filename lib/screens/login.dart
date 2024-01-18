@@ -2,10 +2,13 @@ import 'package:collarlink/api/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key});
   TextEditingController phonenumbercontroller = TextEditingController();
+
+  // Shared Preferences
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +58,18 @@ class LoginScreen extends StatelessWidget {
                     elevation: 10,
                     onPressed: () async {
                       await AuthService.stasignInWithGoogle();
+
                       Navigator.pushReplacementNamed(context, '/choose');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        Image.asset(
+                          "assets/images/google.png",
+                          width: 30,
+                        ),
                         Padding(
-                          padding: const EdgeInsets.all(32.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Container(
                             height: 30.0,
                             width: 30.0,
@@ -103,7 +111,7 @@ class ChoosePerson extends StatelessWidget {
             ],
           ),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, '/task');
+            // Navigator.pushReplacementNamed(context, '/task');
             // AuthService.prefs?.setString('role', 'worker');
           },
         ),

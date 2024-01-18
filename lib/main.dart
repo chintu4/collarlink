@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:collarlink/Internet/controller.dart';
 import 'package:collarlink/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,13 +15,15 @@ import 'screens/task_screen.dart';
 import 'api/api.dart';
 import 'screens/profile_screen.dart';
 import 'screens/sideBar.dart';
+// import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  DependencyInjection.init();
   runApp(const MyApp());
 }
 
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthService.setSharedPref('role', 'worker');
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       // home: const LoginScreen(),
       initialRoute: '/login',
