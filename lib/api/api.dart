@@ -2,21 +2,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:developer';
 
 class AuthService {
-  static SharedPreferences? prefs;
-  static bool isLoggedIn = false;
+  static SharedPreferences? _prefs; //instance
 
-  static Future<void> setSharedPref(String key, String value) async {
-    prefs = await SharedPreferences.getInstance();
-    prefs!.setString(key, value);
-  }
+  // static Future<void> initializePreferences() async {
+  //   _prefs = await SharedPreferences.getInstance();
+  // }
 
-  static Future<String> getSharedPref(String key) async {
-    prefs = await SharedPreferences.getInstance();
+  // static Future<void> setSharedPref(String key, String value) async {
+  //   prefs = await SharedPreferences.getInstance();
+  //   prefs!.setString(key, value);
+  // }
 
-    return prefs!.getString(key)!;
-  }
+  // static Future<String> getSharedPref(String key) async {
+  //   prefs = await SharedPreferences.getInstance();
+
+  //   return prefs!.getString(key)!;
+  // }
 
   // static FirebaseAuth _auth = FirebaseAuth.instance;
   static FirebaseAuth _auth = FirebaseAuth.instance;
@@ -98,6 +102,20 @@ class AuthService {
         .doc(currentUser?.uid)
         .collection('recentPost')
         .add(data);
+  }
+
+  static Future<void> savePreference(String key, dynamic value) async {
+    _prefs?.setString(key, value);
+  }
+
+  static Future<String> getPreference(key) async {
+    dynamic ret = _prefs?.get(key);
+    log(ret ?? "ret is null");
+    if (ret == null) {
+      ret =
+          "NOTHING VALUE"; // Replace `defaultValue` with the appropriate default value you want to assign.
+    }
+    return ret;
   }
 }
 

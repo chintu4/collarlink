@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import "package:flutter/services.dart";
+import "home.dart";
+import 'dart:developer';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key});
@@ -10,8 +13,41 @@ class LoginScreen extends StatelessWidget {
 
   // Shared Preferences
 
+  // @override
+  // void initState(context) {
+  //   Future.delayed(const Duration(seconds: 2), () {
+  //     //exit full-screen
+  //     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  //     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //         systemNavigationBarColor: Colors.white,
+  //         statusBarColor: Colors.white));
+
+  //     if (AuthService.currentUser != null) {
+  //       log('\nUser: ${AuthService.currentUser}');
+  //       //navigate to home screen
+  //       Navigator.pushReplacement(
+  //           context, MaterialPageRoute(builder: (_) => HomeScreen()));
+  //     } else {
+  //       //navigate to login screen
+  //       Navigator.pushReplacement(
+  //           context, MaterialPageRoute(builder: (_) => LoginScreen()));
+  //     }
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
+    // log("nothing");
+
+    // AuthService.initializePreferences();
+    // AuthService.savePreference('role', 'worker');
+
+    // AuthService.getPreference("role").then((value) {
+    //   log(value);
+    //   log("here");
+    //   // log():
+    // });
+    // initState(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -59,7 +95,11 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () async {
                       await AuthService.stasignInWithGoogle();
 
-                      Navigator.pushReplacementNamed(context, '/choose');
+                      AuthService.savePreference('email', 'worker');
+
+                      // Navigator.pushReplacementNamed(context, '/choose');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => ChoosePerson()));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -127,7 +167,7 @@ class ChoosePerson extends StatelessWidget {
           ),
           onPressed: () {
             Navigator.pushNamed(context, '/home');
-            AuthService.prefs?.setString('role', 'contractor');
+            AuthService.savePreference('email', 'contractor');
           },
         ),
       ],

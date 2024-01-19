@@ -4,6 +4,7 @@ import 'package:collarlink/Internet/controller.dart';
 import 'package:collarlink/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/post_screen.dart';
@@ -24,8 +25,16 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // AuthService.initializePreferences();
   DependencyInjection.init();
-  runApp(const MyApp());
+
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // var email = prefs.getString('email');
+  // log(email.toString());
+
+  runApp(MyApp());
+
+  // runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -34,11 +43,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthService.setSharedPref('role', 'worker');
+    dynamic email = null;
+    AuthService.getPreference("role").then((value) {
+      email = value;
+    });
+    // AuthService.savePreference('role', 'worker');
+    // log(AuthService.getPreference('isLoggedin').toString());
+
     return GetMaterialApp(
       title: 'Flutter Demo',
       // home: const LoginScreen(),
-      initialRoute: '/login',
+      initialRoute: (email != null) ? '/home' : '/login', //'/home')/login',
+      // debugShowCheckedModeBanner: false,
 
       routes: {
         '/splash': (context) => SplashScreen(), // to create a splash scren

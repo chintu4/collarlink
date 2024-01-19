@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String aValue = '';
   int currentIndex = 0;
+  String role = '';
 
   @override
   void initState() {
@@ -38,17 +39,26 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadData() async {
-    String a = await AuthService.getSharedPref("role");
-    if (a != 'worker') {
+    AuthService.getPreference("role").then((value) {
+      role = value;
+    });
+    // String role = await AuthService.getPreference("role");
+    log(role);
+    if (role != 'worker') {
       setState(() {
-        aValue = a;
+        aValue = role;
       });
     }
+    log(role);
+    if (role == '') {
+      log("empty string");
+    }
+    // aValue = "nothing;
   }
 
   @override
   Widget build(BuildContext context) {
-    AuthService.prefs?.setString('role', 'worker');
+    // AuthService.savePreference("role", "worker");
     return Scaffold(
       appBar: AppBar(
         title: Text('Collarlink'),
@@ -214,26 +224,28 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-//try the superpass of the screen
-class ContractorHomeScreen extends StatelessWidget {
-  const ContractorHomeScreen({super.key});
+// //try the superpass of the screen
+// class ContractorHomeScreen extends StatelessWidget {
+//   const ContractorHomeScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Text("Contractor Home"),
-          Text("Contractor Home"),
-          Text("Contractor Home"),
-          Text("Contractor Home"),
-          Text("Contractor Home"),
-          Text("Contractor Home"),
-          Text("Contractor Home"),
-          Text("Contractor Home"),
-          Text("Contractor Home"),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Column(
+//         children: [
+//           Text("Contractor Home"),
+//           Text("Contractor Home"),
+//           Text("Contractor Home"),
+//           Text("Contractor Home"),
+//           Text("Contractor Home"),
+//           Text("Contractor Home"),
+//           Text("Contractor Home"),
+//           Text("Contractor Home"),
+//           Text("Contractor Home"),
+//         ],
+//       ),
+//     );
+//   }
+// }
+// 
+
