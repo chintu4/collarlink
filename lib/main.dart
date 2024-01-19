@@ -17,6 +17,7 @@ import 'screens/profile_screen.dart';
 import 'screens/sideBar.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:collarlink/screens/contract.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,6 +52,8 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => ProfileScreen(), //to post screen
         '/choose': (context) => ChoosePerson(),
         '/recentPost': (context) => RecentPost(),
+        '/contract': (context) => ContractScreen(
+            typeOfPerson: "contractor"), //opens when sliderpage is clicked
       },
     );
   }
