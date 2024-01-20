@@ -117,6 +117,20 @@ class AuthService {
     }
     return ret;
   }
+
+  static Future<bool?> getAppliedStatus(String taskId) async {
+    var documentSnapshot =
+        await FirebaseFirestore.instance.collection('tasks').doc(taskId).get();
+    var data = documentSnapshot.data();
+
+    // Check if the document exists and contains the 'isApplied' field
+    if (data != null && data.containsKey('isApplied')) {
+      return data['isApplied'];
+    } else {
+      // Handle the case where the field is not present or the document doesn't exist
+      return null;
+    }
+  }
 }
 
 // class AuthSign {

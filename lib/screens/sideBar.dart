@@ -1,7 +1,8 @@
 import 'package:collarlink/api/api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import "package:cloud_firestore/cloud_firestore.dart";
+import 'package:collarlink/widgets/widgets.dart';
 
 class RecentPost extends StatelessWidget {
   const RecentPost({super.key});
@@ -74,7 +75,8 @@ class PostEditScreen extends StatelessWidget {
   PostEditScreen({required this.taskId});
 
   final TextEditingController taskNameController = TextEditingController();
-  final TextEditingController selectedNumberController = TextEditingController();
+  final TextEditingController selectedNumberController =
+      TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
   final TextEditingController typeOfWorkController = TextEditingController();
@@ -104,7 +106,8 @@ class PostEditScreen extends StatelessWidget {
 
           // Set initial values to controllers
           taskNameController.text = taskDetails!['taskName'];
-          selectedNumberController.text = taskDetails['selectedNumber'].toString();
+          selectedNumberController.text =
+              taskDetails['selectedNumber'].toString();
           descriptionController.text = taskDetails['description'];
           locationController.text = taskDetails['location'];
           typeOfWorkController.text = taskDetails['typeOfWork'];
@@ -117,14 +120,25 @@ class PostEditScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFieldWithLabel(labelText: 'Title', controller: taskNameController),
-                TextFieldWithLabel(labelText: 'Required Number', controller: selectedNumberController),
-                TextFieldWithLabel(labelText: 'Description', controller: descriptionController),
-                TextFieldWithLabel(labelText: 'Location', controller: locationController),
-                TextFieldWithLabel(labelText: 'Type of Work', controller: typeOfWorkController),
-                TextFieldWithLabel(labelText: 'Amount', controller: amountController),
-                TextFieldWithLabel(labelText: 'Mason', controller: masonController),
-                TextFieldWithLabel(labelText: 'Labour', controller: labourController),
+                TextFieldWithLabel(
+                    labelText: 'Title', controller: taskNameController),
+                TextFieldWithLabel(
+                    labelText: 'Required Number',
+                    controller: selectedNumberController),
+                TextFieldWithLabel(
+                    labelText: 'Description',
+                    controller: descriptionController),
+                TextFieldWithLabel(
+                    labelText: 'Location', controller: locationController),
+                TextFieldWithLabel(
+                    labelText: 'Type of Work',
+                    controller: typeOfWorkController),
+                TextFieldWithLabel(
+                    labelText: 'Amount', controller: amountController),
+                TextFieldWithLabel(
+                    labelText: 'Mason', controller: masonController),
+                TextFieldWithLabel(
+                    labelText: 'Labour', controller: labourController),
 
                 // TaskDetailRow('Pay for Travel', taskDetails['payForTravel']),
                 Divider(),
@@ -134,7 +148,8 @@ class PostEditScreen extends StatelessWidget {
                     onPressed: () {
                       // Get updated values from controllers
                       String updatedTaskName = taskNameController.text;
-                      int updatedSelectedNumber = int.parse(selectedNumberController.text);
+                      int updatedSelectedNumber =
+                          int.parse(selectedNumberController.text);
                       String updatedDescription = descriptionController.text;
                       String updatedLocation = locationController.text;
                       String updatedTypeOfWork = typeOfWorkController.text;
@@ -159,6 +174,90 @@ class PostEditScreen extends StatelessWidget {
         label: Text('Update'),
         icon: Icon(Icons.check),
         backgroundColor: Colors.red[400],
+      ),
+    );
+  }
+}
+
+class TaskHistoryScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Task History"),
+        centerTitle: true,
+      ),
+      body: StreamBuilder(
+        stream: AuthService.firestore
+            .collection('users')
+            .doc(AuthService.currentUser?.uid)
+            .collection('recentPost')
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('Error loading task history'));
+          }
+
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          var taskHistory = snapshot.data!.docs;
+
+          return ListView.builder(
+            itemCount: taskHistory.length,
+            itemBuilder: (context, index) {
+              var task = taskHistory[index].data();
+              return ListTile(
+                title: Text(task['taskName']),
+                subtitle: Text(task['description']),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          TaskDetailsScreen(taskDetails: task),
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+class TaskDetailsScreen extends StatelessWidget {
+  final Map<String, dynamic> taskDetails;
+
+  TaskDetailsScreen({required this.taskDetails});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Task Details"),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Title: ${taskDetails['taskName']}"),
+            Text("Required Number: ${taskDetails['selectedNumber']}"),
+            Text("Description: ${taskDetails['description']}"),
+            Text("Location: ${taskDetails['location']}"),
+            Text("Type of Work: ${taskDetails['typeOfWork']}"),
+            Text("Amount: ${taskDetails['amount']}"),
+            Text("Mason: ${taskDetails['mason']}"),
+            Text("Labour: ${taskDetails['labour']}"),
+            Divider(),
+            // Add more details as needed
+          ],
+        ),
       ),
     );
   }

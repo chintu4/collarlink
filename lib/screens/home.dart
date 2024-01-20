@@ -81,10 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ListTile(
-              title: Text('List'),
-              onTap: () {},
-            ),
-            ListTile(
               title: Text('History'),
               onTap: () {},
             ),

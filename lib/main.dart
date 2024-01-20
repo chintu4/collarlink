@@ -68,8 +68,9 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => ProfileScreen(), //to post screen
         '/choose': (context) => ChoosePerson(),
         '/recentPost': (context) => RecentPost(),
-        '/contract': (context) => ContractScreen(
-            typeOfPerson: "contractor"), //opens when sliderpage is clicked
+        '/contract': (context) => ContractScreen(typeOfPerson: "contractor"),
+        //opens when sliderpage is clicked
+        '/history': (context) => TaskHistoryScreen(),
       },
     );
   }
