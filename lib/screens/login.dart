@@ -2,6 +2,8 @@ import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:collarlink/api/api.dart';
+import 'package:collarlink/main.dart';
+import 'package:collarlink/screens/workerScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -142,9 +144,8 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.grey[200],
                       elevation: 10,
                       onPressed: () async {
-                        await AuthService.stasignInWithGoogle();
-
-                        AuthService.savePreference('email', 'worker');
+                        // await AuthService.stasignInWithGoogle();
+                        // AuthService.savePreference('email', 'worker');
 
                         // Navigator.pushReplacementNamed(context, '/choose');
                         Navigator.push(context,
@@ -193,39 +194,56 @@ class ChoosePerson extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+        body: Container(
+      color: Color.fromARGB(255, 250, 225, 255),
+      child: Center(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
             child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextButton(
-          child: Row(
-            children: [
-              Icon(Icons.person),
-              Text('I am a Worker'),
-            ],
+              children: [
+                Icon(
+                  Icons.person,
+                  size: 40,
+                ),
+                Text(
+                  ' To Work',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+            onPressed: () {
+              // Navigate to SecondPage
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => WorkersScreen()),
+            );
+              // Navigator.pushReplacementNamed(context, '/task');
+              // AuthService.prefs?.setString('role', 'worker');
+            },
           ),
-          onPressed: () {
-            // Navigator.pushReplacementNamed(context, '/task');
-            // AuthService.prefs?.setString('role', 'worker');
-          },
-        ),
-        SizedBox(
-          width: 16,
-        ),
-        TextButton(
-          child: Row(
-            children: [
-              Icon(Icons.work),
-              Text('I am a Contractor'),
-            ],
+          SizedBox(
+            width: 16,
           ),
-          onPressed: () {
-            Navigator.pushNamed(context, '/home');
-            AuthService.savePreference('email', 'contractor');
-          },
-        ),
-      ],
-    )));
+          TextButton(
+            child: Row(
+              children: [
+                Icon(
+                  Icons.work,
+                  size: 36,
+                ),
+                Text('To Hire', style: TextStyle(fontSize: 20)),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/home');
+              AuthService.savePreference('email', 'contractor');
+            },
+          ),
+        ],
+      )),
+    ));
   }
 }
 

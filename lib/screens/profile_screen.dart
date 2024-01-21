@@ -15,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:collarlink/widgets/widgets.dart';
 
 class ProfileScreen extends StatelessWidget {
+   int currentIndex = 0;
   final _formKey = GlobalKey<FormState>();
   //user
   final currentUser = FirebaseAuth.instance.currentUser;
@@ -285,7 +286,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  var question = "Hello word my name is chitnu tsafasdfasdkfsdkfjas";
+  var question = "Hello word my name is chintu";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -310,9 +311,46 @@ class _SearchScreenState extends State<SearchScreen> {
                 onPressed: () {},
                 child: Text("he"),
               ),
-            ]),
-          ])),
-    ));
+
+            ]
+            ),
+            
+          ]
+          )
+          ),
+    ),
+    bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Message',
+          ),
+        ],
+
+        // currentIndex: currentIndex,
+        // onTap: (int index) {
+        //   setState(() {
+        //     currentIndex = index; // Update the current index
+        //   });
+
+        //   if (currentIndex == 1) {
+        //     Navigator.pushNamed(
+        //         context, '/profile'); // Navigate to the profile screen
+        //   } else if (currentIndex == 2) {
+        //     Navigator.pushNamed(
+        //         context, '/task'); // Navigate to the search screen
+        //   }
+        // },
+      ),
+    );
   }
 }
 
@@ -359,8 +397,7 @@ class _whatState extends State<what> {
             );
           }
         }
-        )
-        ;
+        );
         
         
   }

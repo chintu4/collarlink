@@ -278,7 +278,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
 
   _ApplyScreenState({required this.taskId});
 
-  bool switchValue = false;
+
   List<TextEditingController> textControllers = [TextEditingController()];
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool willingToTakeTask = false;
@@ -288,20 +288,15 @@ class _ApplyScreenState extends State<ApplyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // worker apply task
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 184, 108, 255),
         title: Text('Apply Screen'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Switch(
-              value: switchValue,
-              onChanged: (newValue) {
-                setState(() {
-                  switchValue = newValue;
-                });
-              },
-            ),
+            
             ListView.builder(
               shrinkWrap: true,
               itemCount: textControllers.length,
