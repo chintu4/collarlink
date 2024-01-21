@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
-import 'package:collarlink/api/api.dart'; // Import your API file
-=======
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collarlink/api/api.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:collarlink/widgets/widgets.dart';
->>>>>>> origin/chintus
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collarlink/widgets/widgets.dart'; // Import your API file
 
 class RecentPost extends StatefulWidget {
   const RecentPost({Key? key}) : super(key: key);
@@ -24,12 +17,11 @@ class _RecentPostState extends State<RecentPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      backgroundColor: Color.fromARGB(255, 184, 108, 255),
-      leading: Icon(Icons.menu),
-      actions: [Icon(Icons.search)],
-        title: Text("Recent Post"),
-         centerTitle: true
-         ),
+          backgroundColor: Color.fromARGB(255, 184, 108, 255),
+          leading: Icon(Icons.menu),
+          actions: [Icon(Icons.search)],
+          title: Text("Recent Post"),
+          centerTitle: true),
       body: Container(
         color: const Color.fromARGB(255, 250, 225, 255),
         child: StreamBuilder(
@@ -40,10 +32,11 @@ class _RecentPostState extends State<RecentPost> {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              var querySnapshot = snapshot.data as QuerySnapshot;
               return ListView.builder(
-                itemCount: snapshot.data!.docs.length,
+                itemCount: querySnapshot.docs.length,
                 itemBuilder: (context, index) {
-                  var post = snapshot.data!.docs[index];
+                  var post = querySnapshot.docs[index];
                   return ListTile(
                     title: Text(post['taskName']),
                     subtitle: Text(post['description']),
@@ -64,7 +57,8 @@ class _RecentPostState extends State<RecentPost> {
                         builder: (context) {
                           return AlertDialog(
                             title: Text(post['taskName']),
-                            content: Text('Description: ${post['description']}'),
+                            content:
+                                Text('Description: ${post['description']}'),
                             actions: [
                               TextButton(
                                 child: Text('Close'),
@@ -162,12 +156,11 @@ class _RecentPostState extends State<RecentPost> {
           if (currentIndex == 0) {
             Navigator.pushReplacementNamed(
                 context, '/home'); // Navigate to the profile screen
-          } 
+          }
           if (currentIndex == 1) {
             Navigator.pushNamed(
                 context, '/profile'); // Navigate to the profile screen
-          } 
-          else if (currentIndex == 2) {
+          } else if (currentIndex == 2) {
             Navigator.pushNamed(
                 context, '/task'); // Navigate to the search screen
           }
@@ -177,8 +170,6 @@ class _RecentPostState extends State<RecentPost> {
   }
 }
 
-<<<<<<< HEAD
-=======
 class PostEditScreen extends StatelessWidget {
   final String taskId;
 
