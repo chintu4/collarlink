@@ -4,7 +4,6 @@ import 'package:collarlink/api/api.dart';
 import 'package:flutter/material.dart';
 // import 'package:carousel_slider/carousel_state.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:collarlink/screens/task_screen.dart';
 
 //contractor Screen
 class HomeScreen extends StatefulWidget {
@@ -14,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> images = [
-    'assets/images/img_frame_99.png',
     'assets/images/Group 6.png',
     'assets/images/Group 7.png',
     'assets/images/Group 8.png',
@@ -62,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Collarlink'),
+        backgroundColor: Color.fromARGB(255, 184, 108, 255),
         actions: [
           IconButton(
             icon: Icon(Icons.search),
@@ -81,10 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ListTile(
-              title: Text('List'),
-              onTap: () {},
-            ),
-            ListTile(
               title: Text('History'),
               onTap: () {},
             ),
@@ -93,10 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.pushReplacementNamed(context, '/recentPost');
               },
-            ),
-            ListTile(
-              title: Text('Feedback'),
-              onTap: () {},
             ),
             ListTile(
               title: Text('Payments'),
@@ -122,73 +113,86 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                color: Colors.purple[100],
-              ),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.phone),
-                    onPressed: () {},
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        color: Colors.yellow,
-                        borderRadius: BorderRadius.circular(8.0),
+      body: Container(
+        color: const Color.fromARGB(255, 250, 225, 255),
+        child: Column(
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: Color.fromARGB(255, 184, 108, 255),
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.phone,
+                        size: 36,
                       ),
-                      padding: EdgeInsets.all(8.0),
-                      child: TextButton(
-                        child: Text('To Post a Job'),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/createTask');
-                        },
-                        // style: TextStyle(color: Colors.black),
-                      ),
+                      onPressed: () {},
                     ),
-                  )
-                ],
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          color: Colors.yellow[400],
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        padding: EdgeInsets.all(8.0),
+                        child: TextButton(
+                          child: Text(
+                            'To Post a Job',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/createTask');
+                          },
+                          // style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
+            ]),
+            Container(
+              // child: Text("Type of work" ,style: TextStyle(),),
+              margin: EdgeInsets.only(top: 20),
             ),
-          ]),
-          Text("Type of work"),
-          CarouselSlider(
-            items: images.map((e) => Image(image: AssetImage(e))).toList(),
-            options: CarouselOptions(
-                autoPlay: true,
-                onPageChanged: (index, reason) {
-                  log("tapped on $index");
-                } // or false to disable autoplay
-                // TODO:implement on tap feature
-                ),
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                ListTile(
-                  title: Text(aValue),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: Text('Search'),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: Text(currentIndex.toString()),
-                  onTap: () {},
-                ),
-              ],
+            CarouselSlider(
+              items: images.map((e) => Image(image: AssetImage(e))).toList(),
+              options: CarouselOptions(
+                  autoPlay: true,
+                  onPageChanged: (index, reason) {
+                    log("tapped on $index");
+                  } // or false to disable autoplay
+                  // TODO:implement on tap feature
+                  ),
             ),
-          ),
-          // TasksScreen()
-        ],
+            // Expanded(
+            //   child: ListView(
+            //     children: [
+            //       ListTile(
+            //         title: Text(aValue),
+            //         onTap: () {},
+            //       ),
+            //       ListTile(
+            //         title: Text('Search'),
+            //         onTap: () {},
+            //       ),
+            //       ListTile(
+            //         title: Text(currentIndex.toString()),
+            //         onTap: () {},
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // TasksScreen()
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
@@ -201,8 +205,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.message),
+            label: 'Message',
           ),
         ],
         currentIndex: currentIndex,

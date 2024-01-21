@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:ui';
+
 import 'package:collarlink/api/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -56,21 +59,24 @@ class LoginScreen extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.blue,
-                Colors.red,
+                Color.fromARGB(255, 201, 182, 204),
+                Color.fromARGB(255, 161, 128, 196),
               ],
             ),
           ),
-          child: Card(
-            margin: EdgeInsets.all(30),
-            elevation: 20,
+          child: Container(
+            margin: EdgeInsets.only(bottom: 40),
+            // elevation: 20,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(
-                    child: Image.asset('assets/images/img_telegram_cloud.png'),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 100, top: 100),
+                    child: SizedBox(
+                      child: Image.asset('assets/images/img_telegram_cloud.png',
+                          height: 230),
+                    ),
                   ),
                   // TextField(
                   //   controller: phonenumbercontroller,
@@ -89,37 +95,85 @@ class LoginScreen extends StatelessWidget {
                   //         child: Text("login"))
                   //   ],
                   // ),
-                  MaterialButton(
-                    color: Colors.teal[100],
-                    elevation: 10,
-                    onPressed: () async {
-                      await AuthService.stasignInWithGoogle();
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child: MaterialButton(
+                      color: Colors.grey[300],
+                      elevation: 10,
+                      onPressed: () async {
+                        await AuthService.stasignInWithGoogle();
 
-                      AuthService.savePreference('email', 'worker');
+                        AuthService.savePreference('email', 'worker');
 
-                      // Navigator.pushReplacementNamed(context, '/choose');
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => ChoosePerson()));
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          "assets/images/google.png",
-                          width: 30,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 30.0,
-                            width: 30.0,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
+                        // Navigator.pushReplacementNamed(context, '/choose');
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => ChoosePerson()));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            "assets/images/google.png",
+                            width: 30,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 30.0,
+                              width: 40.0,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
                             ),
                           ),
-                        ),
-                        Text("Sign In with Google"),
-                      ],
+                          Text("Sign In with Google  "),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "or ",
+                    style: TextStyle(fontSize: 20),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    child: MaterialButton(
+                      color: Colors.grey[200],
+                      elevation: 10,
+                      onPressed: () async {
+                        await AuthService.stasignInWithGoogle();
+
+                        AuthService.savePreference('email', 'worker');
+
+                        // Navigator.pushReplacementNamed(context, '/choose');
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => ChoosePerson()));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          // Image.asset(
+                          //   "assets/images/google.png",
+                          //   width: 30,
+                          // ),
+                          Icon(
+                            Icons.call,
+                            size: 40,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 30.0,
+                              width: 40.0,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                          Text("Sign In with number "),
+                        ],
+                      ),
                     ),
                   ),
                 ],
