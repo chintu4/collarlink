@@ -120,7 +120,7 @@ class TextBox extends StatelessWidget {
   final Function()? onPressed;
 
   const TextBox(
-      {Key ?key,
+      {Key? key,
       required this.title,
       required this.sectionName,
       required this.onPressed});
@@ -144,6 +144,7 @@ class TextBox extends StatelessWidget {
               Text(
                 sectionName,
                 style: TextStyle(color: Colors.grey[500]),
+                overflow: TextOverflow.ellipsis,
               ),
               IconButton(
                 onPressed: onPressed,
@@ -213,7 +214,9 @@ class _MyDropdownListState extends State<MyDropdownList> {
 }
 
 class DropDown extends StatefulWidget {
-  const DropDown({Key ?key,});
+  const DropDown({
+    Key? key,
+  });
 
   @override
   State<DropDown> createState() => _DropDownState();

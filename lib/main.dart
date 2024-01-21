@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:collarlink/Internet/controller.dart';
+import 'package:collarlink/screens/chat_screen.dart';
 import 'package:collarlink/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,8 +20,10 @@ import 'screens/sideBar.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:collarlink/screens/contract.dart';
+import 'package:collarlink/screens/home_screen.dart';
+// import 'package:collarlink/main.dart';
 
-late Size mq;
+late Size mq = Size.zero;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -73,6 +76,8 @@ class MyApp extends StatelessWidget {
         '/contract': (context) => ContractScreen(typeOfPerson: "contractor"),
         //opens when sliderpage is clicked
         '/history': (context) => TaskHistoryScreen(),
+        '/chatScreen': (context) => ChatScreen(user: AuthService.me),
+        '/chatHomeScreen': (context) => ChatHomeScreen(),
       },
     );
   }

@@ -83,8 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               title: Text('History'),
               onTap: () {
-
-                 Navigator.pushReplacementNamed(context, '/history');
+                Navigator.pushReplacementNamed(context, '/history');
               },
             ),
             ListTile(
@@ -200,8 +199,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.message),
+            label: 'Chat',
           ),
         ],
         currentIndex: currentIndex,
@@ -215,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 context, '/profile'); // Navigate to the profile screen
           } else if (currentIndex == 2) {
             Navigator.pushNamed(
-                context, '/task'); // Navigate to the search screen
+                context, '/chatHomeScreen'); // Navigate to the search screen
           }
         },
       ),

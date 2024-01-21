@@ -163,6 +163,10 @@ class ProfileScreen extends StatelessWidget {
                       title: "Phone Number",
                       sectionName: userData['phoneNo'] ?? "Unknown",
                       onPressed: () => editField("phoneNo")),
+                  TextBox(
+                      title: "role",
+                      sectionName: userData['phoneNo'] ?? "Unknown",
+                      onPressed: () => editField("phoneNo")),    
                 ],
               ),
             );

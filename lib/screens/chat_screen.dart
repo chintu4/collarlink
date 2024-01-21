@@ -152,10 +152,7 @@ class _ChatScreenState extends State<ChatScreen> {
               final QuerySnapshot data = snapshot.data as QuerySnapshot;
 
               // final Map<String, dynamic> dataMap = e.data() as Map<String, dynamic>;
-              final list = data.docs
-                  .map((e) =>
-                      ChatUser.fromJson(e.data() as Map<String, dynamic>))
-                  .toList();
+              final list = data.docs.map((e) => ChatUser.fromJson(e.data() as Map<String, dynamic>)).toList();
               return Row(
                 children: [
                   //back button

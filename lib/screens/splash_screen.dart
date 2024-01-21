@@ -10,7 +10,7 @@ import 'home_screen.dart';
 
 //splash screen
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key?key});
+  const SplashScreen({Key? key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         log('\nUser: ${AuthService.currentUser}');
         //navigate to home screen
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+            context, MaterialPageRoute(builder: (_) => const ChatHomeScreen()));
       } else {
         //navigate to login screen
         Navigator.pushReplacement(

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:collarlink/widgets/widgets.dart';
+import 'package:get/get.dart';
 
 class RecentPost extends StatelessWidget {
   const RecentPost({Key? key});
@@ -24,39 +25,56 @@ class RecentPost extends StatelessWidget {
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 var post = snapshot.data!.docs[index];
-                return ListTile(
-                  title: Text(post['taskName']),
-                  subtitle: Text(post['description']),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () async {
-                      await AuthService.firestore
-                          .collection('users')
-                          .doc(AuthService.currentUser?.uid)
-                          .collection('recentPost')
-                          .doc(post.id)
-                          .delete();
-                    },
-                  ),
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text(post['taskName']),
-                          content: Text('Description: ${post['description']}'),
-                          actions: [
-                            TextButton(
-                              child: Text('Close'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
+                return Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                PostEditScreen(taskId: post.id),
+                          ),
                         );
                       },
-                    );
-                  },
+                      child: Icon(Icons.edit),
+                    ),
+                    ListTile(
+                      title: Text(post['taskName']),
+                      subtitle: Text(post['description']),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () async {
+                          await AuthService.firestore
+                              .collection('users')
+                              .doc(AuthService.currentUser?.uid)
+                              .collection('recentPost')
+                              .doc(post.id)
+                              .delete();
+                        },
+                      ),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(post['taskName']),
+                              content:
+                                  Text('Description: ${post['description']}'),
+                              actions: [
+                                TextButton(
+                                  child: Text('Close'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ],
                 );
               },
             );

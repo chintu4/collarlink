@@ -15,14 +15,14 @@ import 'profile_screen.dart';
 //home screen -- where all available contacts are shown
 // Import your Dialogs class
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class ChatHomeScreen extends StatefulWidget {
+  const ChatHomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ChatHomeScreen> createState() => _ChatHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ChatHomeScreenState extends State<ChatHomeScreen> {
   // for storing all users
   List<ChatUser> _list = [];
 

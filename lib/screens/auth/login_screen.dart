@@ -47,12 +47,12 @@ class _LoginScreenState extends State<LoginScreen> {
         log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
 
         if ((await AuthService.userExists())) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (_) => const ChatHomeScreen()));
         } else {
           await AuthService.createUser().then((value) {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (_) => const ChatHomeScreen()));
           });
         }
       }
