@@ -1,8 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:collarlink/api/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -184,6 +181,50 @@ class ProfileScreen extends StatelessWidget {
           }
         },
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text('John Doe'),
+              accountEmail: Text('john.doe@example.com'),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage('https://picsum.photos/200/200'),
+              ),
+            ),
+            ListTile(
+              title: Text('History'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Recent Post'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/recentPost');
+              },
+            ),
+            ListTile(
+              title: Text('Payments'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: () {
+                AuthService.signOut();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Text('Rate Us'),
+                  for (int i = 0; i < 5; i++)
+                    Icon(Icons.star, size: 15, color: Colors.amber),
+                ],
+              ),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: TextButton(
         child: Text("Logout"),
         onPressed: () {
@@ -314,7 +355,7 @@ class _whatState extends State<what> {
                     onPressed: () {
                       Navigator.pop(context);
                     }
-                    //hello
+
                     ,
                   )
                 ],
@@ -325,6 +366,10 @@ class _whatState extends State<what> {
               child: Text("No data in the 'users' collection."),
             );
           }
-        });
+        }
+        )
+        ;
+        
+        
   }
 }

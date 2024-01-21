@@ -5,7 +5,7 @@ import 'package:collarlink/screens/chat_screen.dart';
 import 'package:collarlink/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/post_screen.dart';
@@ -58,8 +58,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       // home: const LoginScreen(),
-      initialRoute: (email != null) ? '/home' : '/login', //'/home')/login',
-      // debugShowCheckedModeBanner: false,
+      // initialRoute: (email != null) ? '/home' : '/login', //'/home')/login',
+      initialRoute: '/home',
+      debugShowCheckedModeBanner: false,
 
       routes: {
         '/splash': (context) => SplashScreen(), // to create a splash scren
