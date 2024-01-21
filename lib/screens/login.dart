@@ -134,7 +134,7 @@ class LoginScreen extends StatelessWidget {
 
 //login screen
 class ChoosePerson extends StatelessWidget {
-  const ChoosePerson({super.key});
+  const ChoosePerson({Key ?key,});
 
   @override
   Widget build(BuildContext context) {

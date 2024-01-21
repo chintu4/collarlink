@@ -82,7 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               title: Text('History'),
-              onTap: () {},
+              onTap: () {
+
+                 Navigator.pushReplacementNamed(context, '/history');
+              },
             ),
             ListTile(
               title: Text('Recent Post'),

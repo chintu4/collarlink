@@ -4,7 +4,7 @@ import 'package:collarlink/Internet/controller.dart';
 import 'package:collarlink/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/post_screen.dart';
@@ -19,6 +19,8 @@ import 'screens/sideBar.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:collarlink/screens/contract.dart';
+
+late Size mq;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +40,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
   // AuthService.prefs?.setString('role', 'worker');
 
   @override
@@ -77,7 +79,9 @@ class MyApp extends StatelessWidget {
 }
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

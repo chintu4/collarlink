@@ -5,20 +5,20 @@ import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:collarlink/widgets/widgets.dart';
 
 class RecentPost extends StatelessWidget {
-  const RecentPost({super.key});
+  const RecentPost({Key? key});
 //adding recent post of current
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Recent Post"), centerTitle: true),
-      body: StreamBuilder(
+      body: StreamBuilder<QuerySnapshot>(
         stream: AuthService.firestore
             .collection('users')
             .doc(AuthService.currentUser?.uid)
             .collection('recentPost')
             .snapshots(),
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,
@@ -202,15 +202,16 @@ class TaskHistoryScreen extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
 
-          var taskHistory = snapshot.data!.docs;
+          var taskHistory = (snapshot.data! as QuerySnapshot).docs;
 
           return ListView.builder(
             itemCount: taskHistory.length,
             itemBuilder: (context, index) {
-              var task = taskHistory[index].data();
+              var task = taskHistory[index].data() as Map<String, dynamic>;
+
               return ListTile(
-                title: Text(task['taskName']),
-                subtitle: Text(task['description']),
+                title: Text(task['taskName'] ?? 'Default value'),
+                subtitle: Text(task['description'] ?? 'Default value'),
                 onTap: () {
                   Navigator.push(
                     context,

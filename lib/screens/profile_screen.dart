@@ -237,7 +237,9 @@ class EditProfile extends StatelessWidget {
 
 //load current user data
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  const SearchScreen({
+    Key? key,
+  });
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -276,7 +278,9 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class what extends StatefulWidget {
-  const what({super.key});
+  const what({
+    Key? key,
+  });
 
   @override
   State<what> createState() => _whatState();

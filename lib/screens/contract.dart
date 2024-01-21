@@ -2,7 +2,8 @@ import "package:flutter/material.dart";
 
 class ContractScreen extends StatefulWidget {
   final String typeOfPerson;
-  const ContractScreen({super.key, required this.typeOfPerson});
+  const ContractScreen({Key? key, required this.typeOfPerson})
+      : super(key: key);
 
   @override
   State<ContractScreen> createState() => _ContractScreenState();
