@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:collarlink/api/api.dart';
+import 'package:collarlink/screens/contract.dart';
 import 'package:flutter/material.dart';
 // import 'package:carousel_slider/carousel_state.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:get/get.dart';
 
 //contractor Screen
 class HomeScreen extends StatefulWidget {
@@ -25,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/images/img_rectangle_257.png',
     'assets/images/img_rectangle_257.png',
   ];
+  List Screen = ['carpenter', 'mechanic', 'carpenter', 'mechanic', 'mason'];
 
   String aValue = '';
   int currentIndex = 0;
@@ -57,6 +60,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     // AuthService.savePreference("role", "worker");
+    //handle to respectue teacher
+
+    void _handleTap(int k) {
+      log(k.toString());
+      log(Screen[k]);
+
+      Get.to(() => ContractScreen(typeOfPerson: Screen[k]));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Collarlink'),
@@ -117,84 +129,77 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Container(
         color: const Color.fromARGB(255, 250, 225, 255),
-        child: Column(
-          children: [
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Color.fromARGB(255, 184, 108, 255),
-                ),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.phone,
-                        size: 36,
-                      ),
-                      onPressed: () {},
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          color: Colors.yellow[400],
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        padding: EdgeInsets.all(8.0),
-                        child: TextButton(
-                          child: Text(
-                            'To Post a Job',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/createTask');
-                          },
-                          // style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ]),
+        child: Column(children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(
-              // child: Text("Type of work" ,style: TextStyle(),),
               margin: EdgeInsets.only(top: 20),
-            ),
-            CarouselSlider(
-              items: images.map((e) => Image(image: AssetImage(e))).toList(),
-              options: CarouselOptions(
-                  autoPlay: true,
-                  onPageChanged: (index, reason) {
-                    log("tapped on $index");
-                  } // or false to disable autoplay
-                  // TODO:implement on tap feature
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Color.fromARGB(255, 184, 108, 255),
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.phone,
+                      size: 36,
+                    ),
+                    onPressed: () {},
                   ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        color: Colors.yellow[400],
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: EdgeInsets.all(8.0),
+                      child: TextButton(
+                        child: Text(
+                          'To Post a Job',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/createTask');
+                        },
+                        // style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-            // Expanded(
-            //   child: ListView(
-            //     children: [
-            //       ListTile(
-            //         title: Text(aValue),
-            //         onTap: () {},
-            //       ),
-            //       ListTile(
-            //         title: Text('Search'),
-            //         onTap: () {},
-            //       ),
-            //       ListTile(
-            //         title: Text(currentIndex.toString()),
-            //         onTap: () {},
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // TasksScreen()
-          ],
-        ),
+          ]),
+          Container(
+            // child: Text("Type of work" ,style: TextStyle(),),
+            margin: EdgeInsets.only(top: 20),
+          ),
+          // CarouselSlider(
+          //   items: images.map((e) => Image(image: AssetImage(e))).toList(),
+          //   options: CarouselOptions(
+          //       autoPlay: true,
+          //       onPageChanged: (index, reason) {
+          //         OnTap() {
+          //           log("tapped on $index");
+          //         }
+          //       } // or false to disable autoplay
+          //       /}/ TODO:implement on tap feature
+
+          //       ),
+          CarouselSlider(
+            items: List.generate(images.length, (index) {
+              return GestureDetector(
+                onTap: () => _handleTap(index),
+                child: Image.asset(images[index]),
+              );
+            }),
+            // ... other CarouselSlider properties
+            options: CarouselOptions(
+                // ... carousel options
+                ),
+          ),
+        ]),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
