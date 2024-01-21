@@ -213,8 +213,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.message),
+            label: 'Message',
           ),
         ],
         currentIndex: currentIndex,
