@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WorkersScreen extends StatelessWidget {
-  WorkersScreen({super.key});
+  // WorkersScreen({super.key});
 
-  var names = ["Carpenter", "Electrician", "Load Lifter", ];
+  var names = [
+    "Carpenter",
+    "Electrician",
+    "Load Lifter",
+  ];
   var location = [
     "Somajiguda",
     "Suraram",
@@ -26,68 +30,78 @@ class WorkersScreen extends StatelessWidget {
           icon: Icon(Icons.menu),
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Drawer(
-                  child: ListView(
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: Text('John Doe'),
-              accountEmail: Text('john.doe@example.com'),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: NetworkImage('https://picsum.photos/200/200'),
-              ),
-            ),
-            
-            ListTile(
-              title: Text('History'),
-              onTap: () {Navigator.pushReplacementNamed(context, '/recentPost');},
-            ),
-            ListTile(
-              title: Text('Recent Post'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/recentPost');
-              },
-            ),
-            
-            ListTile(
-              title: Text('Payments'),
-              onTap: () {
-                (Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => PaymentScreen()),
-            ));
-              },
-            ),
-            // ListTile(
-            //   title: Text('Logout'),
-            //   onTap: () {
-            //     AuthService.signOut();
-            //     Navigator.pushReplacementNamed(context, '/login');
-            //   },
-            
-            ListTile(
-              title: Row(
-                children: [
-                  Text('Rate Us'),
-                  for (int i = 0; i < 5; i++)
-                    Icon(Icons.star, size: 15, color: Colors.amber),
-                ],
-              ),
-              onTap: () {},
-            ),
-          ],
-        ),
-                )));
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Drawer(
+                          child: ListView(
+                            children: [
+                              UserAccountsDrawerHeader(
+                                accountName: Text('John Doe'),
+                                accountEmail: Text('john.doe@example.com'),
+                                currentAccountPicture: CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      'https://picsum.photos/200/200'),
+                                ),
+                              ),
+
+                              ListTile(
+                                title: Text('History'),
+                                onTap: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/recentPost');
+                                },
+                              ),
+                              ListTile(
+                                title: Text('Recent Post'),
+                                onTap: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/recentPost');
+                                },
+                              ),
+
+                              ListTile(
+                                title: Text('Payments'),
+                                onTap: () {
+                                  (Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PaymentScreen()),
+                                  ));
+                                },
+                              ),
+                              // ListTile(
+                              //   title: Text('Logout'),
+                              //   onTap: () {
+                              //     AuthService.signOut();
+                              //     Navigator.pushReplacementNamed(context, '/login');
+                              //   },
+
+                              ListTile(
+                                title: Row(
+                                  children: [
+                                    Text('Rate Us'),
+                                    for (int i = 0; i < 5; i++)
+                                      Icon(Icons.star,
+                                          size: 15, color: Colors.amber),
+                                  ],
+                                ),
+                                onTap: () {},
+                              ),
+                            ],
+                          ),
+                        )));
           },
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.call,size: 50,),
+            icon: Icon(
+              Icons.call,
+              size: 50,
+            ),
             onPressed: () {
-              (Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ContactMePage())));
+              (Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ContactMePage())));
             },
-            
           )
         ],
       ),
