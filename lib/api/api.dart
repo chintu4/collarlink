@@ -44,19 +44,21 @@ class AuthService {
 
   // static GoogleSignInAccount? _googleAuth = GoogleSignIn();
 
-  static Future<UserCredential> stasignInWithGoogle() async {
-    //begin interactive sign in progress
+  static Future<UserCredential?> stasignInWithGoogle() async {
     final GoogleSignInAccount? gUser = await _googleSignIn.signIn();
+    if (gUser != null) {
+      final GoogleSignInAuthentication gAuth = await gUser.authentication;
+      // rest of your code
 
-    //obtain auth details from request
-    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
-    //create a new credential for user
-    final credential = GoogleAuthProvider.credential(
-      accessToken: gAuth.accessToken,
-      idToken: gAuth.idToken,
-    );
-    //finally use let sign in
-    return await _auth.signInWithCredential(credential);
+      final credential = GoogleAuthProvider.credential(
+        accessToken: gAuth.accessToken,
+        idToken: gAuth.idToken,
+      );
+
+      return await _auth.signInWithCredential(credential);
+    } else {
+      return null; // or throw an error
+    }
   }
 
   static Future<void> signOut() async {
