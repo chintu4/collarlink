@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:collarlink/api/api.dart'; // Import your API file
+=======
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collarlink/api/api.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import '../widgets/widgets.dart';
+import 'package:collarlink/widgets/widgets.dart';
+>>>>>>> origin/chintus
 
 class RecentPost extends StatefulWidget {
   const RecentPost({Key? key}) : super(key: key);
@@ -168,3 +178,115 @@ class _RecentPostState extends State<RecentPost> {
   }
 }
 
+<<<<<<< HEAD
+=======
+class PostEditScreen extends StatelessWidget {
+  final String taskId;
+
+  PostEditScreen({required this.taskId});
+
+  final TextEditingController taskNameController = TextEditingController();
+  final TextEditingController selectedNumberController =
+      TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController typeOfWorkController = TextEditingController();
+  final TextEditingController amountController = TextEditingController();
+  final TextEditingController masonController = TextEditingController();
+  final TextEditingController labourController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Update Task Details'),
+        centerTitle: true,
+      ),
+      body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        future: AuthService.firestore.collection('tasks').doc(taskId).get(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('Error loading task details'));
+          }
+
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          var taskDetails = snapshot.data!.data();
+
+          // Set initial values to controllers
+          taskNameController.text = taskDetails!['taskName'];
+          selectedNumberController.text =
+              taskDetails['selectedNumber'].toString();
+          descriptionController.text = taskDetails['description'];
+          locationController.text = taskDetails['location'];
+          typeOfWorkController.text = taskDetails['typeOfWork'];
+          amountController.text = taskDetails['amount'].toString();
+          masonController.text = taskDetails['mason'];
+          labourController.text = taskDetails['labour'];
+
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFieldWithLabel(
+                    labelText: 'Title', controller: taskNameController),
+                TextFieldWithLabel(
+                    labelText: 'Required Number',
+                    controller: selectedNumberController),
+                TextFieldWithLabel(
+                    labelText: 'Description',
+                    controller: descriptionController),
+                TextFieldWithLabel(
+                    labelText: 'Location', controller: locationController),
+                TextFieldWithLabel(
+                    labelText: 'Type of Work',
+                    controller: typeOfWorkController),
+                TextFieldWithLabel(
+                    labelText: 'Amount', controller: amountController),
+                TextFieldWithLabel(
+                    labelText: 'Mason', controller: masonController),
+                TextFieldWithLabel(
+                    labelText: 'Labour', controller: labourController),
+
+                // TaskDetailRow('Pay for Travel', taskDetails['payForTravel']),
+                Divider(),
+
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      // Get updated values from controllers
+                      String updatedTaskName = taskNameController.text;
+                      int updatedSelectedNumber =
+                          int.parse(selectedNumberController.text);
+                      String updatedDescription = descriptionController.text;
+                      String updatedLocation = locationController.text;
+                      String updatedTypeOfWork = typeOfWorkController.text;
+                      String updatedAmount = amountController.text;
+                      String updatedMason = masonController.text;
+                      String updatedLabour = labourController.text;
+
+                      // TODO: Update Firestore with the updated values
+                    },
+                    child: Text("Apply"),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        label: Text('Update'),
+        icon: Icon(Icons.check),
+        backgroundColor: Colors.red[400],
+      ),
+    );
+  }
+}
+>>>>>>> origin/chintus
