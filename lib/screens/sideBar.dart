@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:collarlink/api/api.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collarlink/widgets/widgets.dart'; // Import your API file
-=======
 
 import 'package:flutter/material.dart';
 import 'package:collarlink/api/api.dart'; // Import your API file
-
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collarlink/api/api.dart';
@@ -15,8 +12,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../widgets/widgets.dart';
 import 'package:collarlink/widgets/widgets.dart';
-
->>>>>>> 959dcd9f95a7bc66d928536ecd1ec61564ac971c
 
 class RecentPost extends StatefulWidget {
   const RecentPost({Key? key}) : super(key: key);
@@ -105,10 +100,11 @@ class _RecentPostState extends State<RecentPost> {
                 backgroundImage: NetworkImage('https://picsum.photos/200/200'),
               ),
             ),
-           
             ListTile(
               title: Text('History'),
-              onTap: () {Navigator.pushReplacementNamed(context, '/recentPost');},
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/recentPost');
+              },
             ),
             ListTile(
               title: Text('Recent Post'),
@@ -116,7 +112,6 @@ class _RecentPostState extends State<RecentPost> {
                 Navigator.pushReplacementNamed(context, '/recentPost');
               },
             ),
-           
             ListTile(
               title: Text('Payments'),
               onTap: () {},
@@ -307,7 +302,6 @@ class PostEditScreen extends StatelessWidget {
     );
   }
 }
-<<<<<<< HEAD
 
 class TaskHistoryScreen extends StatelessWidget {
   @override
@@ -393,5 +387,3 @@ class TaskDetailsScreen extends StatelessWidget {
     );
   }
 }
-=======
->>>>>>> 959dcd9f95a7bc66d928536ecd1ec61564ac971c

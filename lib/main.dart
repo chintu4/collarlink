@@ -5,7 +5,7 @@ import 'package:collarlink/screens/chat_screen.dart';
 import 'package:collarlink/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/post_screen.dart';
@@ -22,6 +22,7 @@ import 'package:get/get.dart';
 import 'package:collarlink/screens/contract.dart';
 import 'package:collarlink/screens/home_screen.dart';
 // import 'package:collarlink/main.dart';
+import 'package:collarlink/screens/workerScreen.dart';
 
 late Size mq = Size.zero;
 
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
         '/history': (context) => TaskHistoryScreen(),
         '/chatScreen': (context) => ChatScreen(user: AuthService.me),
         '/chatHomeScreen': (context) => ChatHomeScreen(),
+        '/bookmark': (context) => BookMarkScreen(),
       },
     );
   }

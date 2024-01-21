@@ -10,7 +10,7 @@ import '../models/chat_user.dart';
 import '../models/message.dart';
 
 import 'dart:convert';
-import 'dart:developer';
+// import 'dart:developer';
 import 'dart:io';
 
 class AuthService {
@@ -87,6 +87,16 @@ class AuthService {
 
   static Future<void> pushPostScreenData(Map<String, dynamic> data) async {
     await FirebaseFirestore.instance.collection('tasks').add(data);
+    await pushRecentScreenData(data);
+  }
+
+  //worker will have book mark
+  static Future<void> pushBookMarkData(Map<String, dynamic> data) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(AuthService.currentUser?.uid)
+        .collection("bookmark")
+        .add(data);
     await pushRecentScreenData(data);
   }
 

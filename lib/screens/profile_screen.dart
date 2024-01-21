@@ -15,7 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:collarlink/widgets/widgets.dart';
 
 class ProfileScreen extends StatelessWidget {
-   int currentIndex = 0;
+  int currentIndex = 0;
   final _formKey = GlobalKey<FormState>();
   //user
   final currentUser = FirebaseAuth.instance.currentUser;
@@ -118,7 +118,8 @@ class ProfileScreen extends StatelessWidget {
                     onTap: _pickImage,
                     child: CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage('assets/images/avatar.jpg'),
+                      backgroundImage: NetworkImage(
+                          "https://media.vanityfair.com/photos/646e309146eb63633b3c1d59/master/w_1920,c_limit/joe-alwyn-cannes.jpg"),
                     ),
                   ),
                   IconButton(
@@ -296,36 +297,31 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //adda snapbar();
-        body: Center(
-      child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Column(children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey, width: 1),
+      //adda snapbar();
+      body: Center(
+        child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey, width: 1),
+                ),
+                child: Text(
+                  question,
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-              child: Text(
-                question,
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              TextButton(
-                onPressed: () {},
-                child: Text("he"),
-              ),
-
-            ]
-            ),
-            
-          ]
-          )
-          ),
-    ),
-    bottomNavigationBar: BottomNavigationBar(
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text("he"),
+                ),
+              ]),
+            ])),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -392,9 +388,7 @@ class _whatState extends State<what> {
                     child: Text("back"),
                     onPressed: () {
                       Navigator.pop(context);
-                    }
-
-                    ,
+                    },
                   )
                 ],
               ),
@@ -404,9 +398,6 @@ class _whatState extends State<what> {
               child: Text("No data in the 'users' collection."),
             );
           }
-        }
-        );
-        
-        
+        });
   }
 }
