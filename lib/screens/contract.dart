@@ -20,10 +20,7 @@ class _ContractScreenState extends State<ContractScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .where('role', isEqualTo: typeOfPerson)
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection('users').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Something went wrong');
@@ -31,20 +28,32 @@ class _ContractScreenState extends State<ContractScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Text('Loading...');
           }
+          // return Center(child: Text(snapshot.data!.docs[0]['name']));
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (BuildContext context, int index) {
               var user = snapshot.data!.docs[index];
+
               return ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(user['profilePhotoUrl']),
+                  backgroundImage: NetworkImage(user['']),
                 ),
-                title: Text(user['username']),
-                trailing: IconButton(
-                  icon: Icon(Icons.message),
-                  onPressed: () {
-                    // Handle message icon tap
-                  },
+                title: Text(user['name']),
+                trailing: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.message),
+                      onPressed: () {
+                        // Handle message icon tap
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.message),
+                      onPressed: () {
+                        // Handle message icon tap
+                      },
+                    ),
+                  ],
                 ),
               );
             },

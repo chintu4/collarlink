@@ -12,31 +12,20 @@ import 'dart:developer';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key});
+
   TextEditingController phonenumbercontroller = TextEditingController();
-
-  // Shared Preferences
-
-  // @override
-  // void initState(context) {
-  //   Future.delayed(const Duration(seconds: 2), () {
-  //     //exit full-screen
-  //     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  //     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-  //         systemNavigationBarColor: Colors.white,
-  //         statusBarColor: Colors.white));
-
-  //     if (AuthService.currentUser != null) {
-  //       log('\nUser: ${AuthService.currentUser}');
-  //       //navigate to home screen
-  //       Navigator.pushReplacement(
-  //           context, MaterialPageRoute(builder: (_) => HomeScreen()));
-  //     } else {
-  //       //navigate to login screen
-  //       Navigator.pushReplacement(
-  //           context, MaterialPageRoute(builder: (_) => LoginScreen()));
-  //     }
-  //   });
-  // }
+  void checkUserAndCreate() async {
+    var snapshot = await AuthService.firestore
+        .collection('users')
+        .doc(AuthService.currentUser?.uid)
+        .get();
+    if (snapshot.exists) {
+      var name = snapshot.data()?["name"];
+      if (name == null) {
+        await AuthService.createUser();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +177,9 @@ class LoginScreen extends StatelessWidget {
 
 //login screen
 class ChoosePerson extends StatelessWidget {
-  const ChoosePerson({Key ?key,});
+  const ChoosePerson({
+    Key? key,
+  });
 
   @override
   Widget build(BuildContext context) {
