@@ -108,10 +108,7 @@ class _RecentPostState extends State<RecentPost> {
                 Navigator.pushReplacementNamed(context, '/recentPost');
               },
             ),
-            ListTile(
-              title: Text('Feedback'),
-              onTap: () {},
-            ),
+           
             ListTile(
               title: Text('Payments'),
               onTap: () {},

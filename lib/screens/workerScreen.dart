@@ -1,9 +1,12 @@
+import 'package:collarlink/screens/contactUs.dart';
+import 'package:collarlink/screens/payments.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class WorkersScreen extends StatelessWidget {
   WorkersScreen({super.key});
 
-  var names = ["Carpenter", "Electrician", "Load Lifter", "Plumber"];
+  var names = ["Carpenter", "Electrician", "Load Lifter", ];
   var location = [
     "Somajiguda",
     "Suraram",
@@ -44,13 +47,15 @@ class WorkersScreen extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, '/recentPost');
               },
             ),
-            ListTile(
-              title: Text('Feedback'),
-              onTap: () {},
-            ),
+            
             ListTile(
               title: Text('Payments'),
-              onTap: () {},
+              onTap: () {
+                (Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => PaymentScreen()),
+            ));
+              },
             ),
             // ListTile(
             //   title: Text('Logout'),
@@ -75,9 +80,14 @@ class WorkersScreen extends StatelessWidget {
           },
         ),
         actions: [
-          Icon(
-            Icons.call,
-            size: 50,
+          IconButton(
+            icon: Icon(Icons.call,size: 50,),
+            onPressed: () {
+              (Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ContactMePage())));
+            },
+            
           )
         ],
       ),
