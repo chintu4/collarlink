@@ -25,6 +25,35 @@ class Review extends StatelessWidget {
   }
 }
 
+Widget build(BuildContext context) {
+  return Scaffold(
+      //adda snapbar();
+      body: Center(
+    child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey, width: 1),
+            ),
+            child: Text(
+              'question',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            TextButton(
+              onPressed: () {},
+              child: Text("he"),
+            ),
+          ]),
+        ])),
+  ));
+}
+
+
 //     );
 //   }
 // }

@@ -1,9 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collarlink/api/api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:collarlink/widgets/widgets.dart';
-import 'package:get/get.dart';
 
 class RecentPost extends StatelessWidget {
   const RecentPost({Key? key});
@@ -138,6 +137,25 @@ class PostEditScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                TextFieldWithLabel(
+                    labelText: 'Title', controller: taskNameController),
+                TextFieldWithLabel(
+                    labelText: 'Required Number',
+                    controller: selectedNumberController),
+                TextFieldWithLabel(
+                    labelText: 'Description',
+                    controller: descriptionController),
+                TextFieldWithLabel(
+                    labelText: 'Location', controller: locationController),
+                TextFieldWithLabel(
+                    labelText: 'Type of Work',
+                    controller: typeOfWorkController),
+                TextFieldWithLabel(
+                    labelText: 'Amount', controller: amountController),
+                TextFieldWithLabel(
+                    labelText: 'Mason', controller: masonController),
+                TextFieldWithLabel(
+                    labelText: 'Labour', controller: labourController),
                 TextFieldWithLabel(
                     labelText: 'Title', controller: taskNameController),
                 TextFieldWithLabel(

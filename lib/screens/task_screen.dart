@@ -2,12 +2,69 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collarlink/api/api.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
+  @override
+  _TasksScreenState createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tasks'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text('John Doe'),
+              accountEmail: Text('john.doe@example.com'),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage('https://picsum.photos/200/200'),
+              ),
+            ),
+            ListTile(
+              title: Text('History'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/history');
+              },
+            ),
+            ListTile(
+              title: Text('Recent Post'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/recentPost');
+              },
+            ),
+            ListTile(
+              title: Text('Feedback'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Payments'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: () {
+                AuthService.signOut();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Text('Rate Us'),
+                  for (int i = 0; i < 5; i++)
+                    Icon(Icons.star, size: 15, color: Colors.amber),
+                ],
+              ),
+              onTap: () {},
+            ),
+          ],
+        ),
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection('tasks').snapshots(),
@@ -50,6 +107,36 @@ class TasksScreen extends StatelessWidget {
               );
             },
           );
+        },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Chat',
+          ),
+        ],
+        currentIndex: currentIndex,
+        onTap: (int index) {
+          setState(() {
+            currentIndex = index; // Update the current index
+          });
+
+          if (currentIndex == 1) {
+            Navigator.pushNamed(
+                context, '/profile'); // Navigate to the profile screen
+          } else if (currentIndex == 2) {
+            Navigator.pushNamed(
+                context, '/chatHomeScreen'); // Navigate to the search screen
+          }
         },
       ),
     );
