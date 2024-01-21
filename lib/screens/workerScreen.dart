@@ -2,6 +2,10 @@ import 'package:collarlink/screens/contactUs.dart';
 import 'package:collarlink/screens/payments.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:collarlink/api/api.dart';
+import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '';
 
 class WorkersScreen extends StatelessWidget {
   // WorkersScreen({super.key});
@@ -55,7 +59,7 @@ class WorkersScreen extends StatelessWidget {
                                 title: Text('Recent Post'),
                                 onTap: () {
                                   Navigator.pushReplacementNamed(
-                                      context, '/recentPost');
+                                      context, '/bookmark');
                                 },
                               ),
 
@@ -118,20 +122,51 @@ class WorkersScreen extends StatelessWidget {
       body: ListView.separated(
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.person,
-                  size: 50,
-                ),
-                SizedBox(width: 16), // Add space between icon and title
-              ],
-            ),
-            title: Text(names[index]),
-            subtitle: Text(location[index]),
-            trailing: Icon(Icons.add),
-          );
+              leading: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 50,
+                  ),
+                  SizedBox(width: 16), // Add space between icon and title
+                ],
+              ),
+              title: Text(names[index]),
+              subtitle: Text(location[index]),
+              trailing: IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () async {
+                  Map<String, dynamic> postData = {
+                    'taskName': 'To work',
+                    'selectedNumber': 3,
+                    'description': "Need Plumber for construction",
+                    'location': "jubliee hills/hyderabad",
+                    'typeOfWork': 'Wage Per Work',
+                    // Add other fields as needed
+                    'uid': AuthService.currentUser!.uid,
+
+                    'amount': 5000,
+                    'mason': 600,
+                    'labour': 800,
+
+                    'payForTravel': true,
+                  };
+
+                  try {
+                    // Add the data to Firestore
+                    // Optionally, you can call your AuthService method here if needed
+                    await AuthService.pushPostScreenData(postData);
+
+                    // Navigate to the next screen
+                    Navigator.pushNamed(context, '/home');
+                  } catch (e) {
+                    // Handle any errors that occur during the Firestore operation
+                    log('Error adding document to Firestore: $e');
+                  }
+                  AuthService.pushBookMarkData(postData);
+                },
+              ));
         },
         separatorBuilder: (context, index) {
           return Divider(
@@ -140,6 +175,47 @@ class WorkersScreen extends StatelessWidget {
           );
         },
         itemCount: names.length,
+      ),
+    );
+  }
+}
+
+class BookMarkScreen extends StatelessWidget {
+  Future<List<DocumentSnapshot>> getBookmarks() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(AuthService.currentUser!.uid)
+        .collection('bookmarks')
+        .get();
+    return querySnapshot.docs;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Bookmarks'),
+      ),
+      body: FutureBuilder<List<DocumentSnapshot>>(
+        future: getBookmarks(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                DocumentSnapshot doc = snapshot.data![index];
+                return ListTile(
+                  title: Text(doc['title']),
+                  subtitle: Text(doc['description']),
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }

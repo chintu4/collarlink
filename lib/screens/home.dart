@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 
+
 //contractor Screen
 class HomeScreen extends StatefulWidget {
   @override
