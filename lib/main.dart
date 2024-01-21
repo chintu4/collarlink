@@ -58,8 +58,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       // home: const LoginScreen(),
-      // initialRoute: (email != null) ? '/home' : '/login', //'/home')/login',
-      initialRoute: '/home',
+      initialRoute: (email != null) ? '/home' : '/login', //'/home')/login',
+
       debugShowCheckedModeBanner: false,
 
       routes: {
