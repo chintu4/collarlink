@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collarlink/api/api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import '../widgets/widgets.dart';
+import 'package:collarlink/widgets/widgets.dart';
 
 class RecentPost extends StatelessWidget {
   const RecentPost({super.key});
@@ -74,7 +76,8 @@ class PostEditScreen extends StatelessWidget {
   PostEditScreen({required this.taskId});
 
   final TextEditingController taskNameController = TextEditingController();
-  final TextEditingController selectedNumberController = TextEditingController();
+  final TextEditingController selectedNumberController =
+      TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
   final TextEditingController typeOfWorkController = TextEditingController();
@@ -104,7 +107,8 @@ class PostEditScreen extends StatelessWidget {
 
           // Set initial values to controllers
           taskNameController.text = taskDetails!['taskName'];
-          selectedNumberController.text = taskDetails['selectedNumber'].toString();
+          selectedNumberController.text =
+              taskDetails['selectedNumber'].toString();
           descriptionController.text = taskDetails['description'];
           locationController.text = taskDetails['location'];
           typeOfWorkController.text = taskDetails['typeOfWork'];
@@ -117,14 +121,25 @@ class PostEditScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFieldWithLabel(labelText: 'Title', controller: taskNameController),
-                TextFieldWithLabel(labelText: 'Required Number', controller: selectedNumberController),
-                TextFieldWithLabel(labelText: 'Description', controller: descriptionController),
-                TextFieldWithLabel(labelText: 'Location', controller: locationController),
-                TextFieldWithLabel(labelText: 'Type of Work', controller: typeOfWorkController),
-                TextFieldWithLabel(labelText: 'Amount', controller: amountController),
-                TextFieldWithLabel(labelText: 'Mason', controller: masonController),
-                TextFieldWithLabel(labelText: 'Labour', controller: labourController),
+                TextFieldWithLabel(
+                    labelText: 'Title', controller: taskNameController),
+                TextFieldWithLabel(
+                    labelText: 'Required Number',
+                    controller: selectedNumberController),
+                TextFieldWithLabel(
+                    labelText: 'Description',
+                    controller: descriptionController),
+                TextFieldWithLabel(
+                    labelText: 'Location', controller: locationController),
+                TextFieldWithLabel(
+                    labelText: 'Type of Work',
+                    controller: typeOfWorkController),
+                TextFieldWithLabel(
+                    labelText: 'Amount', controller: amountController),
+                TextFieldWithLabel(
+                    labelText: 'Mason', controller: masonController),
+                TextFieldWithLabel(
+                    labelText: 'Labour', controller: labourController),
 
                 // TaskDetailRow('Pay for Travel', taskDetails['payForTravel']),
                 Divider(),
@@ -134,7 +149,8 @@ class PostEditScreen extends StatelessWidget {
                     onPressed: () {
                       // Get updated values from controllers
                       String updatedTaskName = taskNameController.text;
-                      int updatedSelectedNumber = int.parse(selectedNumberController.text);
+                      int updatedSelectedNumber =
+                          int.parse(selectedNumberController.text);
                       String updatedDescription = descriptionController.text;
                       String updatedLocation = locationController.text;
                       String updatedTypeOfWork = typeOfWorkController.text;
